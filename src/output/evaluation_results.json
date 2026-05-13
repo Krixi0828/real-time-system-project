@@ -1,0 +1,680 @@
+{
+  "hard_deadline_miss_rate": 0.0,
+  "soft_deadline_miss_rate": 0.0,
+  "average_tardiness": 0.0,
+  "max_tardiness": 0,
+  "average_response_time": 2.911111,
+  "max_response_time": 8,
+  "completion_time_jitter": 1.195338,
+  "acceptance_test": {
+    "sporadic_total_jobs": 5,
+    "sporadic_accepted_jobs": 5,
+    "sporadic_rejected_jobs": 0,
+    "sporadic_unknown_decision_jobs": 0,
+    "post_acceptance_violation_rate": 0.0
+  },
+  "sporadic_value_rate": 1.0,
+  "generator_cost": 588870.0,
+  "market_revenue": 443647.0,
+  "objective_value": 145223.0,
+  "periodic_average_response_time": 2.96875,
+  "periodic_max_response_time": 8,
+  "soft_missed_jobs": [],
+  "hard_missed_jobs": [],
+  "task_set_summary": {
+    "periodic_task_count": 6,
+    "expanded_periodic_job_count": 32,
+    "periodic_workload_density": 0.9602564102564102,
+    "distinct_periods": [
+      8,
+      12,
+      13,
+      15,
+      16,
+      24
+    ],
+    "selected_frame_size": 3,
+    "deadline_equals_execution_count": 2,
+    "non_preemptive_e_gt_1_count": 4,
+    "high_energy_task_count_w_ge_14": 4
+  },
+  "validation_summary": {
+    "constraint_violation_count": 0,
+    "task_set_violation_count": 0,
+    "format_violation_count": 0,
+    "job_constraint_violation_count": 0,
+    "hourly_constraint_violation_count": 0,
+    "checked_hours": 72,
+    "checked_jobs": 45
+  },
+  "violations": [],
+  "per_job_metrics": {
+    "p1_1": {
+      "type": "periodic",
+      "release": 2,
+      "deadline": 8,
+      "completion_time": 5,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        3,
+        5
+      ]
+    },
+    "p1_2": {
+      "type": "periodic",
+      "release": 18,
+      "deadline": 24,
+      "completion_time": 19,
+      "response_time": 1,
+      "tardiness": 0,
+      "scheduled_times": [
+        18,
+        19
+      ]
+    },
+    "p1_3": {
+      "type": "periodic",
+      "release": 34,
+      "deadline": 40,
+      "completion_time": 37,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        36,
+        37
+      ]
+    },
+    "p1_4": {
+      "type": "periodic",
+      "release": 50,
+      "deadline": 56,
+      "completion_time": 52,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        51,
+        52
+      ]
+    },
+    "p1_5": {
+      "type": "periodic",
+      "release": 66,
+      "deadline": 72,
+      "completion_time": 67,
+      "response_time": 1,
+      "tardiness": 0,
+      "scheduled_times": [
+        66,
+        67
+      ]
+    },
+    "p2_1": {
+      "type": "periodic",
+      "release": 15,
+      "deadline": 22,
+      "completion_time": 17,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        16,
+        17
+      ]
+    },
+    "p2_2": {
+      "type": "periodic",
+      "release": 30,
+      "deadline": 37,
+      "completion_time": 36,
+      "response_time": 6,
+      "tardiness": 0,
+      "scheduled_times": [
+        35,
+        36
+      ]
+    },
+    "p2_3": {
+      "type": "periodic",
+      "release": 45,
+      "deadline": 52,
+      "completion_time": 48,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        47,
+        48
+      ]
+    },
+    "p2_4": {
+      "type": "periodic",
+      "release": 60,
+      "deadline": 67,
+      "completion_time": 65,
+      "response_time": 5,
+      "tardiness": 0,
+      "scheduled_times": [
+        64,
+        65
+      ]
+    },
+    "p3_1": {
+      "type": "periodic",
+      "release": 19,
+      "deadline": 21,
+      "completion_time": 21,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        19,
+        20,
+        21
+      ]
+    },
+    "p3_2": {
+      "type": "periodic",
+      "release": 43,
+      "deadline": 45,
+      "completion_time": 45,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        43,
+        44,
+        45
+      ]
+    },
+    "p3_3": {
+      "type": "periodic",
+      "release": 67,
+      "deadline": 69,
+      "completion_time": 69,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        67,
+        68,
+        69
+      ]
+    },
+    "p4_1": {
+      "type": "periodic",
+      "release": 2,
+      "deadline": 8,
+      "completion_time": 6,
+      "response_time": 4,
+      "tardiness": 0,
+      "scheduled_times": [
+        5,
+        6
+      ]
+    },
+    "p4_2": {
+      "type": "periodic",
+      "release": 10,
+      "deadline": 16,
+      "completion_time": 14,
+      "response_time": 4,
+      "tardiness": 0,
+      "scheduled_times": [
+        13,
+        14
+      ]
+    },
+    "p4_3": {
+      "type": "periodic",
+      "release": 18,
+      "deadline": 24,
+      "completion_time": 20,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        19,
+        20
+      ]
+    },
+    "p4_4": {
+      "type": "periodic",
+      "release": 26,
+      "deadline": 32,
+      "completion_time": 29,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        28,
+        29
+      ]
+    },
+    "p4_5": {
+      "type": "periodic",
+      "release": 34,
+      "deadline": 40,
+      "completion_time": 38,
+      "response_time": 4,
+      "tardiness": 0,
+      "scheduled_times": [
+        37,
+        38
+      ]
+    },
+    "p4_6": {
+      "type": "periodic",
+      "release": 42,
+      "deadline": 48,
+      "completion_time": 44,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        43,
+        44
+      ]
+    },
+    "p4_7": {
+      "type": "periodic",
+      "release": 50,
+      "deadline": 56,
+      "completion_time": 53,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        52,
+        53
+      ]
+    },
+    "p4_8": {
+      "type": "periodic",
+      "release": 58,
+      "deadline": 64,
+      "completion_time": 63,
+      "response_time": 5,
+      "tardiness": 0,
+      "scheduled_times": [
+        62,
+        63
+      ]
+    },
+    "p4_9": {
+      "type": "periodic",
+      "release": 66,
+      "deadline": 72,
+      "completion_time": 68,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        67,
+        68
+      ]
+    },
+    "p5_1": {
+      "type": "periodic",
+      "release": 4,
+      "deadline": 13,
+      "completion_time": 12,
+      "response_time": 8,
+      "tardiness": 0,
+      "scheduled_times": [
+        12
+      ]
+    },
+    "p5_2": {
+      "type": "periodic",
+      "release": 17,
+      "deadline": 26,
+      "completion_time": 17,
+      "response_time": 0,
+      "tardiness": 0,
+      "scheduled_times": [
+        17
+      ]
+    },
+    "p5_3": {
+      "type": "periodic",
+      "release": 30,
+      "deadline": 39,
+      "completion_time": 36,
+      "response_time": 6,
+      "tardiness": 0,
+      "scheduled_times": [
+        36
+      ]
+    },
+    "p5_4": {
+      "type": "periodic",
+      "release": 43,
+      "deadline": 52,
+      "completion_time": 43,
+      "response_time": 0,
+      "tardiness": 0,
+      "scheduled_times": [
+        43
+      ]
+    },
+    "p5_5": {
+      "type": "periodic",
+      "release": 56,
+      "deadline": 65,
+      "completion_time": 64,
+      "response_time": 8,
+      "tardiness": 0,
+      "scheduled_times": [
+        64
+      ]
+    },
+    "p6_1": {
+      "type": "periodic",
+      "release": 5,
+      "deadline": 7,
+      "completion_time": 7,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        5,
+        6,
+        7
+      ]
+    },
+    "p6_2": {
+      "type": "periodic",
+      "release": 17,
+      "deadline": 19,
+      "completion_time": 19,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        17,
+        18,
+        19
+      ]
+    },
+    "p6_3": {
+      "type": "periodic",
+      "release": 29,
+      "deadline": 31,
+      "completion_time": 31,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        29,
+        30,
+        31
+      ]
+    },
+    "p6_4": {
+      "type": "periodic",
+      "release": 41,
+      "deadline": 43,
+      "completion_time": 43,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        41,
+        42,
+        43
+      ]
+    },
+    "p6_5": {
+      "type": "periodic",
+      "release": 53,
+      "deadline": 55,
+      "completion_time": 55,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        53,
+        54,
+        55
+      ]
+    },
+    "p6_6": {
+      "type": "periodic",
+      "release": 65,
+      "deadline": 67,
+      "completion_time": 67,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        65,
+        66,
+        67
+      ]
+    },
+    "s1": {
+      "type": "sporadic",
+      "release": 10,
+      "deadline": 14,
+      "completion_time": 13,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        12,
+        13
+      ]
+    },
+    "s2": {
+      "type": "sporadic",
+      "release": 18,
+      "deadline": 23,
+      "completion_time": 21,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        19,
+        20,
+        21
+      ]
+    },
+    "s3": {
+      "type": "sporadic",
+      "release": 29,
+      "deadline": 32,
+      "completion_time": 29,
+      "response_time": 0,
+      "tardiness": 0,
+      "scheduled_times": [
+        29
+      ]
+    },
+    "s4": {
+      "type": "sporadic",
+      "release": 46,
+      "deadline": 50,
+      "completion_time": 48,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        47,
+        48
+      ]
+    },
+    "s5": {
+      "type": "sporadic",
+      "release": 64,
+      "deadline": 67,
+      "completion_time": 65,
+      "response_time": 1,
+      "tardiness": 0,
+      "scheduled_times": [
+        64,
+        65
+      ]
+    },
+    "a1": {
+      "type": "aperiodic",
+      "release": 7,
+      "deadline": 14,
+      "completion_time": 13,
+      "response_time": 6,
+      "tardiness": 0,
+      "scheduled_times": [
+        12,
+        13
+      ]
+    },
+    "a2": {
+      "type": "aperiodic",
+      "release": 12,
+      "deadline": 16,
+      "completion_time": 12,
+      "response_time": 0,
+      "tardiness": 0,
+      "scheduled_times": [
+        12
+      ]
+    },
+    "a3": {
+      "type": "aperiodic",
+      "release": 21,
+      "deadline": 30,
+      "completion_time": 29,
+      "response_time": 8,
+      "tardiness": 0,
+      "scheduled_times": [
+        26,
+        27,
+        28,
+        29
+      ]
+    },
+    "a4": {
+      "type": "aperiodic",
+      "release": 25,
+      "deadline": 30,
+      "completion_time": 28,
+      "response_time": 3,
+      "tardiness": 0,
+      "scheduled_times": [
+        26,
+        28
+      ]
+    },
+    "a5": {
+      "type": "aperiodic",
+      "release": 37,
+      "deadline": 45,
+      "completion_time": 39,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        37,
+        38,
+        39
+      ]
+    },
+    "a6": {
+      "type": "aperiodic",
+      "release": 52,
+      "deadline": 55,
+      "completion_time": 52,
+      "response_time": 0,
+      "tardiness": 0,
+      "scheduled_times": [
+        52
+      ]
+    },
+    "a7": {
+      "type": "aperiodic",
+      "release": 58,
+      "deadline": 65,
+      "completion_time": 64,
+      "response_time": 6,
+      "tardiness": 0,
+      "scheduled_times": [
+        62,
+        63,
+        64
+      ]
+    },
+    "a8": {
+      "type": "aperiodic",
+      "release": 66,
+      "deadline": 70,
+      "completion_time": 68,
+      "response_time": 2,
+      "tardiness": 0,
+      "scheduled_times": [
+        67,
+        68
+      ]
+    }
+  },
+  "reserve_strategy": {
+    "selected_frame_size": 3,
+    "day_ahead_sporadic_reserve_mwh": 20.0,
+    "aperiodic_reserve_mwh": 5.0,
+    "primary_generator": "thermal_1",
+    "planned_thermal_capacity_by_hour": {
+      "1": 35.0,
+      "2": 70.0,
+      "3": 90.0,
+      "4": 105.0,
+      "5": 120.0,
+      "6": 125.0,
+      "7": 125.0,
+      "8": 125.0,
+      "9": 125.0,
+      "10": 125.0,
+      "11": 125.0,
+      "12": 125.0,
+      "13": 125.0,
+      "14": 125.0,
+      "15": 125.0,
+      "16": 125.0,
+      "17": 125.0,
+      "18": 125.0,
+      "19": 125.0,
+      "20": 125.0,
+      "21": 125.0,
+      "22": 125.0,
+      "23": 125.0,
+      "24": 125.0,
+      "25": 125.0,
+      "26": 125.0,
+      "27": 125.0,
+      "28": 125.0,
+      "29": 125.0,
+      "30": 125.0,
+      "31": 125.0,
+      "32": 125.0,
+      "33": 125.0,
+      "34": 125.0,
+      "35": 125.0,
+      "36": 125.0,
+      "37": 125.0,
+      "38": 125.0,
+      "39": 125.0,
+      "40": 125.0,
+      "41": 125.0,
+      "42": 125.0,
+      "43": 125.0,
+      "44": 125.0,
+      "45": 125.0,
+      "46": 125.0,
+      "47": 125.0,
+      "48": 125.0,
+      "49": 125.0,
+      "50": 125.0,
+      "51": 125.0,
+      "52": 125.0,
+      "53": 125.0,
+      "54": 125.0,
+      "55": 125.0,
+      "56": 125.0,
+      "57": 125.0,
+      "58": 125.0,
+      "59": 125.0,
+      "60": 125.0,
+      "61": 125.0,
+      "62": 125.0,
+      "63": 125.0,
+      "64": 125.0,
+      "65": 125.0,
+      "66": 125.0,
+      "67": 125.0,
+      "68": 125.0,
+      "69": 125.0,
+      "70": 125.0,
+      "71": 125.0,
+      "72": 125.0
+    },
+    "strategy": "Periodic jobs are fixed first; sporadic jobs are inserted only into remaining capacity without moving existing hard-deadline jobs; aperiodic jobs wait in a queue and use remaining slack."
+  }
+}

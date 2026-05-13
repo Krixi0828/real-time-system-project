@@ -1,6 +1,34 @@
 import random
 import json
 import math
+from pathlib import Path
+
+SEED = 42
+random.seed(SEED)
+
+
+# ============================================================
+# 專案路徑設定
+# ============================================================
+def project_root() -> Path:
+    """
+    找到專案根目錄。
+
+    為什麼需要這個函式：
+    - 作業規定程式碼要放在 src/ 底下。
+    - 但 input/ 和 output/ 是和 src/ 同一層的資料夾。
+    - 如果你在 src/ 裡面執行 `python3 task_generator.py`，原本的
+      `output/task_set.json` 會被解讀成 `src/output/task_set.json`，因此會出錯。
+    - 這個函式會偵測目前檔案是否在 src/ 中，若是，就回到上一層作為專案根目錄。
+    """
+    script_dir = Path(__file__).resolve().parent
+    if script_dir.name == "src":
+        return script_dir.parent
+    return script_dir
+
+
+PROJECT_ROOT = project_root()
+OUTPUT_DIR = PROJECT_ROOT / "output"
 
 # 這個只是用來驗證生成的任務集是否符合規定的函式，實際上在生成任務集的過程中已經盡量確保符合規定了
 def final_validate_tasks(tasks):
@@ -198,8 +226,9 @@ if __name__ == "__main__":
 
     print(json.dumps({"periodic": periodic_tasks}, indent=2))
     # Save Files
-    with open('../output/task_set.json', 'w') as f:
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    task_set_path = OUTPUT_DIR / 'task_set.json'
+    with open(task_set_path, 'w', encoding='utf-8') as f:
         json.dump({"periodic": periodic_tasks}, f, indent=2)
-        
-    print("task_set.json has created successfully in output directory.")
+    print(f"task_set.json has created successfully at {task_set_path}")
     print(final_validate_tasks(periodic_tasks))
