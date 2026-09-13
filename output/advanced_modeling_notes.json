@@ -1,0 +1,96 @@
+{
+  "level": 2,
+  "advanced_method": "Rolling corrective dispatch with renewable uncertainty and battery realism.",
+  "notation_and_constraints": [
+    {
+      "name": "Actual renewable availability",
+      "notation": "theta_{r,t}=1+0.1*sin(2*pi*t/24), A_{r,t}=clip(F_{r,t}*theta_{r,t},0,1)",
+      "text": "The advanced scheduler observes actual renewable availability within +/-10% of the forecast.",
+      "formula": "0 <= P^R_{r,t} <= Cap_r * A_{r,t}"
+    },
+    {
+      "name": "Battery efficient SOC update",
+      "notation": "eta_ch, eta_dis",
+      "text": "Battery charging/discharging is not lossless.",
+      "formula": "SOC_{b,t}=SOC_{b,t-1}+eta_ch*Chg_{b,t}-Dis_{b,t}/eta_dis"
+    },
+    {
+      "name": "Battery aging cost",
+      "notation": "c_age",
+      "text": "Battery throughput adds operating cost.",
+      "formula": "C_age=c_age*sum_b sum_t (Chg_{b,t}+Dis_{b,t})"
+    },
+    {
+      "name": "Battery throughput limit",
+      "notation": "L_b",
+      "text": "Daily battery usage is limited by a throughput budget.",
+      "formula": "sum_t (Chg_{b,t}+Dis_{b,t}) <= L_b"
+    },
+    {
+      "name": "Battery self-discharge",
+      "notation": "rho_b",
+      "text": "Stored battery energy decays slightly over time even when it is not used.",
+      "formula": "SOC_{b,t}=max(SOC_min_b,(1-rho_b)SOC_{b,t-1})+eta_ch Chg_{b,t}-Dis_{b,t}/eta_dis"
+    },
+    {
+      "name": "SOC-dependent discharge power limit",
+      "notation": "gamma_dis",
+      "text": "Battery discharge power is reduced when SOC is close to the minimum level.",
+      "formula": "Dis_{b,t} <= min(Dis_max_b, gamma_dis * eta_dis * max(0,SOC'_{b,t}-SOC_min_b))"
+    },
+    {
+      "name": "SOC-dependent charge power limit",
+      "notation": "gamma_ch",
+      "text": "Battery charge power is reduced when SOC is close to the maximum level.",
+      "formula": "Chg_{b,t} <= min(Chg_max_b, gamma_ch * max(0,SOC_max_b-SOC''_{b,t})/eta_ch)"
+    },
+    {
+      "name": "Rolling update",
+      "notation": "Delta=4 hours",
+      "text": "Every 4 hours, actual renewable data is observed and energy dispatch is corrected.",
+      "formula": "k^adv_{j,i,t} can be redistributed, but hard-deadline x_{j,t} is fixed."
+    },
+    {
+      "name": "Hard-deadline schedule preservation",
+      "notation": "x_{j,t}",
+      "text": "Periodic jobs and accepted sporadic jobs are not moved after Level 1 acceptance.",
+      "formula": "x^adv_{j,t}=x^L1_{j,t}, for all j in J_p union accepted(J_s)"
+    },
+    {
+      "name": "Renewable surplus charging",
+      "notation": "Surplus^R_t",
+      "text": "Renewable surplus is used to charge batteries before it is sold.",
+      "formula": "Chg^R_{b,t} <= max(0, sum_r P^R_{r,t}-sum_j k^R_{j,t})"
+    },
+    {
+      "name": "Renewable shortage correction",
+      "notation": "Short^R_t",
+      "text": "When actual renewable energy is insufficient, battery discharge can compensate before thermal slack is used.",
+      "formula": "Dis_{b,t} <= min(dis_b, (SOC_{b,t-1}-SOC_min_b)*eta_dis)"
+    },
+    {
+      "name": "Market-aware battery dispatch",
+      "notation": "lambda_t, lambda_low, lambda_high",
+      "text": "Battery charging is preferred at low prices or renewable-surplus hours; discharging is preferred at high prices.",
+      "formula": "Chg_{b,t}>0 only if lambda_t<=lambda_low or Surplus^R_t>0; Dis_{b,t}>0 only if lambda_t>=lambda_high"
+    },
+    {
+      "name": "Day-ahead sell commitment shortfall penalty",
+      "notation": "S^DA_t, pi_cancel",
+      "text": "If real-time market sale is lower than the day-ahead sell commitment, the shortfall incurs a penalty.",
+      "formula": "C_cancel=sum_t pi_cancel * lambda_t * max(0,S^DA_t-S_t)"
+    },
+    {
+      "name": "Aperiodic soft-deadline policy",
+      "notation": "Miss_j, T_j",
+      "text": "Aperiodic jobs do not receive hard-deadline acceptance tests; late completion is recorded as soft miss and tardiness.",
+      "formula": "T_j=max(0,C_j-d_j), Miss_j=1 if C_j>d_j for j in J_a"
+    },
+    {
+      "name": "Advanced objective",
+      "notation": "F_adv",
+      "text": "The objective includes aperiodic misses, thermal cost, battery aging, sell-commitment penalty, and market revenue.",
+      "formula": "F_adv=alpha*miss_a+generator_cost+battery_aging_cost+C_cancel-market_revenue"
+    }
+  ]
+}

@@ -36,7 +36,43 @@ from typing import Any, Dict, List, Tuple, Optional, Set
 H = 72
 FRAME_SIZE = 3
 ALPHA_MISS_PENALTY = 10000
+THERMAL_PRIMARY = "thermal_1"
+SPORADIC_RESERVE_MWH = 20.0
+APERIODIC_RESERVE_MWH = 15.0
 EPS = 1e-6
+
+
+def find_project_root() -> Path:
+    """
+    找到專案根目錄，讓 evaluator 從專案根目錄的 input/output 讀寫檔案。
+
+    支援：
+    - 在專案根目錄執行：python3 src/evaluator.py
+    - 進入 src 後執行：python3 evaluator.py
+    """
+    script_dir = Path(__file__).resolve().parent
+    cwd = Path.cwd().resolve()
+    candidates = list(dict.fromkeys([script_dir, *script_dir.parents, cwd, *cwd.parents]))
+
+    for base in candidates:
+        if (base / "input").is_dir() and (base / "output").is_dir() and (base / "src").is_dir():
+            return base
+    for base in candidates:
+        if (base / "input").is_dir() and (base / "output").is_dir():
+            return base
+    if script_dir.name == "src":
+        return script_dir.parent
+    return script_dir
+
+
+PROJECT_ROOT = find_project_root()
+
+
+def resolve_path(path: str | Path) -> Path:
+    path = Path(path)
+    if path.is_absolute():
+        return path
+    return PROJECT_ROOT / path
 
 
 # ============================================================
@@ -51,6 +87,7 @@ def load_json(path: str | Path) -> Any:
     - 支援繳交格式中的 input/*.json 與 output/*.json。
     - 確保 evaluator 可以獨立讀取 scheduler 的輸出結果。
     """
+    path = resolve_path(path)
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -63,7 +100,7 @@ def save_json(data: Any, path: str | Path) -> None:
     - 產生 output/evaluation_results.json。
     - 對應 Level 1 評分標準第 5 大項「評估指標」。
     """
-    path = Path(path)
+    path = resolve_path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
@@ -78,7 +115,7 @@ def first_existing_path(candidates: List[str]) -> Path:
     - 因此 evaluator 同時支援 input/...、output/... 與同層檔案。
     """
     for candidate in candidates:
-        path = Path(candidate)
+        path = resolve_path(candidate)
         if path.exists():
             return path
     raise FileNotFoundError(f"Cannot find any of these files: {candidates}")
@@ -87,6 +124,8 @@ def first_existing_path(candidates: List[str]) -> Path:
 # ============================================================
 # 2. 載入輸入資料
 # ============================================================
+
+
 
 def load_all_inputs() -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     """
@@ -207,6 +246,45 @@ def build_maps(processor_data: Dict[str, Any], price_data: Dict[str, Any]) -> Di
 # ============================================================
 # 4. 載入 Demo jobs：sporadic / aperiodic
 # ============================================================
+def convert_jobs_format(raw_data: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
+    """
+    將以 Dict 形式儲存的任務資料（例如原本 JSON 中的 sporadic 或 aperiodic）
+    轉換為標準的 List[Dict] 格式，並確保每個任務內部都包含正確的 'job_id'。
+    """
+    converted_result = {}
+    
+    # 遍歷外部的所有任務類型，例如 "sporadic", "aperiodic" 等
+    for task_type, tasks_content in raw_data.items():
+        
+        # 情況一：如果任務內容是字典格式 {"s1": {...}, "s2": {...}}
+        if isinstance(tasks_content, dict):
+            task_list = []
+            for key, job_detail in tasks_content.items():
+                # 複製一份資料，避免修改到原本的 dict
+                updated_job = job_detail.copy()
+                
+                # 如果內部沒有 job_id 欄位，或者 job_id 與外層的 key 不符，自動校正
+                if "job_id" not in updated_job or updated_job["job_id"] != key:
+                    updated_job["job_id"] = key
+                
+                task_list.append(updated_job)
+            
+            # 依據 job_id 排序（選用，讓輸出比較整齊）
+            task_list.sort(key=lambda x: x["job_id"])
+            converted_result[task_type] = task_list
+            
+        # 情況二：如果原本就已經是串列格式了，直接保留
+        elif isinstance(tasks_content, list):
+            converted_result[task_type] = tasks_content
+        
+        # 其他情況（防呆）
+        else:
+            converted_result[task_type] = tasks_content
+
+    return converted_result
+
+
+
 
 def normalize_demo_jobs(jobs: List[Dict[str, Any]], prefix: str, job_type: str) -> List[Dict[str, Any]]:
     """
@@ -266,12 +344,12 @@ def load_demo_jobs_from_files_or_fallback(acceptance_data: Dict[str, Any]) -> Tu
     - 讓 evaluator 可以在 demo jobs 出現後重新計算 metrics。
     """
     demo_candidates = [
-        "input/demo_jobs.json", "../input/demo_jobs.json", "output/demo_jobs.json", "demo_jobs.json"
+        "input/aperiodic_n_sporadic.json", "../input/aperiodic_n_sporadic.json", "output/aperiodic_n_sporadic.json", "aperiodic_n_sporadic.json"
     ]
     for candidate in demo_candidates:
-        path = Path(candidate)
+        path = resolve_path(candidate)
         if path.exists():
-            data = load_json(path)
+            data = convert_jobs_format(load_json(path))
             return (
                 normalize_demo_jobs(data.get("sporadic", []), "s", "sporadic"),
                 normalize_demo_jobs(data.get("aperiodic", []), "a", "aperiodic"),
@@ -281,16 +359,16 @@ def load_demo_jobs_from_files_or_fallback(acceptance_data: Dict[str, Any]) -> Tu
     aperiodic_raw: Optional[List[Dict[str, Any]]] = None
 
     for candidate in ["input/sporadic_jobs.json", "../input/sporadic_jobs.json", "output/sporadic_jobs.json", "sporadic_jobs.json"]:
-        path = Path(candidate)
+        path = resolve_path(candidate)
         if path.exists():
-            data = load_json(path)
+            data = convert_jobs_format(load_json(path))
             sporadic_raw = data.get("sporadic", data) if isinstance(data, dict) else data
             break
 
     for candidate in ["input/aperiodic_jobs.json", "../input/aperiodic_jobs.json", "output/aperiodic_jobs.json", "aperiodic_jobs.json"]:
-        path = Path(candidate)
+        path = resolve_path(candidate)
         if path.exists():
-            data = load_json(path)
+            data = convert_jobs_format(load_json(path))
             aperiodic_raw = data.get("aperiodic", data) if isinstance(data, dict) else data
             break
 
@@ -315,23 +393,12 @@ def load_demo_jobs_from_files_or_fallback(acceptance_data: Dict[str, Any]) -> Tu
     # 如果仍沒有任何 demo jobs，使用 scheduler.py 的 deterministic sample。
     if not sporadic_raw:
         sporadic_raw = [
-            {"job_id": "s1", "r": 10, "e": 2, "d": 5, "w": 12, "preempt": 1},
-            {"job_id": "s2", "r": 18, "e": 3, "d": 6, "w": 18, "preempt": 0},
-            {"job_id": "s3", "r": 29, "e": 1, "d": 4, "w": 20, "preempt": 1},
-            {"job_id": "s4", "r": 46, "e": 2, "d": 5, "w": 10, "preempt": 1},
-            {"job_id": "s5", "r": 64, "e": 2, "d": 4, "w": 16, "preempt": 0},
+       
         ]
 
     if aperiodic_raw is None:
         aperiodic_raw = [
-            {"job_id": "a1", "r": 7, "e": 2, "d": 8, "w": 8, "preempt": 1},
-            {"job_id": "a2", "r": 12, "e": 1, "d": 5, "w": 10, "preempt": 1},
-            {"job_id": "a3", "r": 21, "e": 4, "d": 10, "w": 15, "preempt": 0},
-            {"job_id": "a4", "r": 25, "e": 2, "d": 6, "w": 9, "preempt": 1},
-            {"job_id": "a5", "r": 37, "e": 3, "d": 9, "w": 12, "preempt": 0},
-            {"job_id": "a6", "r": 52, "e": 1, "d": 4, "w": 5, "preempt": 1},
-            {"job_id": "a7", "r": 58, "e": 3, "d": 8, "w": 11, "preempt": 1},
-            {"job_id": "a8", "r": 66, "e": 2, "d": 5, "w": 13, "preempt": 0},
+
         ]
 
     return (
@@ -453,7 +520,14 @@ def count_expanded_periodic_jobs(periodic_tasks: Dict[str, Dict[str, Any]], hori
     完成作業哪部分：
     - 對應評分標準 1-3：展開後 periodic jobs 數量必須大於 30。
     """
-    return len(expand_periodic_jobs(periodic_tasks, horizon))
+    total = 0
+    for task in periodic_tasks.values():
+        release = int(task["r"])
+        period = int(task["p"])
+        while release <= horizon:
+            total += 1
+            release += period
+    return total
 
 
 def expand_periodic_jobs(periodic_tasks: Dict[str, Dict[str, Any]], horizon: int = H) -> List[Dict[str, Any]]:
@@ -1151,6 +1225,48 @@ def compute_cost_revenue_objective(
     }
 
 
+def planned_generator_outputs(t: int, maps: Dict[str, Any]) -> Dict[str, float]:
+    """
+    還原 scheduler 的保守 thermal capacity plan。
+
+    evaluator 不重新排程，只根據 processor settings 重新計算 scheduler 使用的
+    reserve strategy 說明資料，讓 evaluation_results.json 完整由 evaluator 產生。
+    """
+    outputs = {}
+    for gid, g in maps["generators"].items():
+        max_p = float(g["output_max"])
+        ramp_up = float(g["ramp_up_rate"])
+        outputs[gid] = min(max_p, ramp_up * t)
+    return outputs
+
+
+def build_capacity_by_hour(maps: Dict[str, Any]) -> Dict[int, float]:
+    return {
+        t: round(sum(planned_generator_outputs(t, maps).values()), 6)
+        for t in range(1, H + 1)
+    }
+
+
+def build_reserve_strategy(maps: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    產生 reserve_strategy 區塊。
+
+    這一段原本由 scheduler.py 放進 evaluation_results.json，現在移到 evaluator.py。
+    """
+    return {
+        "selected_frame_size": FRAME_SIZE,
+        "day_ahead_sporadic_reserve_mwh": SPORADIC_RESERVE_MWH,
+        "aperiodic_reserve_mwh": APERIODIC_RESERVE_MWH,
+        "primary_generator": THERMAL_PRIMARY,
+        "planned_thermal_capacity_by_hour": build_capacity_by_hour(maps),
+        "strategy": (
+            "Periodic jobs are fixed first; sporadic jobs are inserted only into remaining "
+            "capacity without moving existing hard-deadline jobs; aperiodic jobs wait in a "
+            "queue and use remaining slack."
+        ),
+    }
+
+
 # ============================================================
 # 12. 綜合執行 evaluator
 # ============================================================
@@ -1267,21 +1383,10 @@ def run_evaluation() -> Dict[str, Any]:
 
         # 每個 job 的細節：方便你確認 response time / tardiness 怎麼算。
         "per_job_metrics": metric_info["per_job"],
-    }
 
-    # 如果 scheduler 原本的 evaluation_results.json 裡有 reserve_strategy，就保留下來。
-    # 這可以讓 report 寫第 6 大項「日前保留策略效能分析」時有資料可引用。
-    try:
-        old_eval_path = first_existing_path([
-            "output/evaluation_results.json",
-            "../output/evaluation_results.json",
-            "evaluation_results.json",
-        ])
-        old_eval = load_json(old_eval_path)
-        if "reserve_strategy" in old_eval:
-            evaluation["reserve_strategy"] = old_eval["reserve_strategy"]
-    except FileNotFoundError:
-        pass
+        # Reserve strategy，對應評分標準 6。
+        "reserve_strategy": build_reserve_strategy(maps),
+    }
 
     return evaluation
 

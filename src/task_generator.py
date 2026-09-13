@@ -3,24 +3,12 @@ import json
 import math
 from pathlib import Path
 
+H = 72
 SEED = 42
 random.seed(SEED)
 
 
-# ============================================================
-# 專案路徑設定
-# ============================================================
 def project_root() -> Path:
-    """
-    找到專案根目錄。
-
-    為什麼需要這個函式：
-    - 作業規定程式碼要放在 src/ 底下。
-    - 但 input/ 和 output/ 是和 src/ 同一層的資料夾。
-    - 如果你在 src/ 裡面執行 `python3 task_generator.py`，原本的
-      `output/task_set.json` 會被解讀成 `src/output/task_set.json`，因此會出錯。
-    - 這個函式會偵測目前檔案是否在 src/ 中，若是，就回到上一層作為專案根目錄。
-    """
     script_dir = Path(__file__).resolve().parent
     if script_dir.name == "src":
         return script_dir.parent
@@ -29,6 +17,16 @@ def project_root() -> Path:
 
 PROJECT_ROOT = project_root()
 OUTPUT_DIR = PROJECT_ROOT / "output"
+
+
+def count_released_jobs(task, horizon=H):
+    """Count releases r, r+p, r+2p, ... within the scheduling horizon."""
+    count = 0
+    release = task["r"]
+    while release <= horizon:
+        count += 1
+        release += task["p"]
+    return count
 
 # 這個只是用來驗證生成的任務集是否符合規定的函式，實際上在生成任務集的過程中已經盡量確保符合規定了
 def final_validate_tasks(tasks):
@@ -45,7 +43,7 @@ def final_validate_tasks(tasks):
         return False
     
     # 1-3: 展開後的 periodic jobs 數量必須大於 30 個。
-    total_jobs = sum(72 // t['p'] for t in tasks.values())
+    total_jobs = sum(count_released_jobs(t) for t in tasks.values())
     if total_jobs <= 30:
         print("Total number of periodic jobs must be greater than 30. Found:", total_jobs)
         return False
@@ -100,8 +98,6 @@ def final_validate_tasks(tasks):
         max_e = max(t['e'] for t in tasks.values())
         min_p = min(t['p'] for t in tasks.values())
         f = tasks[next(iter(tasks))]['selected_f']
-        H = 72
-        
         if H % f != 0:
             print(f"Selected frame size F must be a factor of 72. Found F={f} which does not divide 72.")
             return False
@@ -118,7 +114,7 @@ def final_validate_tasks(tasks):
 
 def validate_tasks(tasks):
     # 1-3: 展開後的 periodic jobs 數量必須大於 30 個。
-    total_jobs = sum(72 // t['p'] for t in tasks.values())
+    total_jobs = sum(count_released_jobs(t) for t in tasks.values())
     if total_jobs <= 30:
         return False
     
@@ -227,8 +223,9 @@ if __name__ == "__main__":
     print(json.dumps({"periodic": periodic_tasks}, indent=2))
     # Save Files
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    task_set_path = OUTPUT_DIR / 'task_set.json'
+    task_set_path = OUTPUT_DIR / "task_set.json"
     with open(task_set_path, 'w', encoding='utf-8') as f:
         json.dump({"periodic": periodic_tasks}, f, indent=2)
+        
     print(f"task_set.json has created successfully at {task_set_path}")
     print(final_validate_tasks(periodic_tasks))

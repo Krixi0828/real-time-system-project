@@ -2,13 +2,13 @@
   {
     "job_id": "s1",
     "type": "sporadic",
-    "release_time": 1,
-    "ads_deadline": 10,
+    "release": 1,
+    "deadline": 10,
     "execution_time": 3,
     "energy_demand": 15.0,
     "preempt": 1,
-    "accepted": true,
-    "assigned_hours": [
+    "decision": "accept",
+    "scheduled_times": [
       3,
       5,
       10
@@ -18,13 +18,13 @@
   {
     "job_id": "s2",
     "type": "sporadic",
-    "release_time": 3,
-    "ads_deadline": 15,
+    "release": 3,
+    "deadline": 17,
     "execution_time": 4,
     "energy_demand": 10.0,
     "preempt": 1,
-    "accepted": true,
-    "assigned_hours": [
+    "decision": "accept",
+    "scheduled_times": [
       12,
       13,
       14,

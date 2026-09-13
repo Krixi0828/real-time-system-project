@@ -7,8 +7,7 @@ H = 72
 FRAME_SIZE = 3
 THERMAL_PRIMARY = "thermal_1"
 SPORADIC_RESERVE_MWH = 20.0
-APERIODIC_RESERVE_MWH = 5.0
-ALPHA_MISS_PENALTY = 10000.0
+APERIODIC_RESERVE_MWH = 15.0
 
 # ============================================================
 # JSON utilities + project-root aware path handling
@@ -117,6 +116,46 @@ def optional_existing(paths: List[str | Path]) -> Optional[Path]:
 # Input loading
 # ============================================================
 
+def convert_jobs_format(raw_data: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
+    """
+    將以 Dict 形式儲存的任務資料（例如原本 JSON 中的 sporadic 或 aperiodic）
+    轉換為標準的 List[Dict] 格式，並確保每個任務內部都包含正確的 'job_id'。
+    """
+    converted_result = {}
+    
+    # 遍歷外部的所有任務類型，例如 "sporadic", "aperiodic" 等
+    for task_type, tasks_content in raw_data.items():
+        
+        # 情況一：如果任務內容是字典格式 {"s1": {...}, "s2": {...}}
+        if isinstance(tasks_content, dict):
+            task_list = []
+            for key, job_detail in tasks_content.items():
+                # 複製一份資料，避免修改到原本的 dict
+                updated_job = job_detail.copy()
+                
+                # 如果內部沒有 job_id 欄位，或者 job_id 與外層的 key 不符，自動校正
+                if "job_id" not in updated_job or updated_job["job_id"] != key:
+                    updated_job["job_id"] = key
+                
+                task_list.append(updated_job)
+            
+            # 依據 job_id 排序（選用，讓輸出比較整齊）
+            task_list.sort(key=lambda x: x["job_id"])
+            converted_result[task_type] = task_list
+            
+        # 情況二：如果原本就已經是串列格式了，直接保留
+        elif isinstance(tasks_content, list):
+            converted_result[task_type] = tasks_content
+        
+        # 其他情況（防呆）
+        else:
+            converted_result[task_type] = tasks_content
+
+    return converted_result
+
+
+
+
 def load_inputs() -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     """Load required Level-1 inputs.
 
@@ -148,56 +187,26 @@ def load_demo_jobs() -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     所有路徑都會以 PROJECT_ROOT 為基準，所以可從 src/ 或專案根目錄執行。
     """
     demo_path = optional_existing([
-        "input/demo_jobs.json",
-        "output/demo_jobs.json",
-        "demo_jobs.json",
+        "input/aperiodic_n_sporadic.json",
+        "output/aperiodic_n_sporadic.json",
+        "aperiodic_n_sporadic.json",
     ])
     if demo_path is not None:
-        data = load_json(demo_path)
+        data = convert_jobs_format(load_json(demo_path))
         return data.get("sporadic", []), data.get("aperiodic", [])
 
     sporadic: Optional[List[Dict[str, Any]]] = None
     aperiodic: Optional[List[Dict[str, Any]]] = None
 
-    sporadic_path = optional_existing([
-        "input/sporadic_jobs.json",
-        "output/sporadic_jobs.json",
-        "sporadic_jobs.json",
-    ])
-    if sporadic_path is not None:
-        data = load_json(sporadic_path)
-        sporadic = data.get("sporadic", data) if isinstance(data, dict) else data
-
-    aperiodic_path = optional_existing([
-        "input/aperiodic_jobs.json",
-        "output/aperiodic_jobs.json",
-        "aperiodic_jobs.json",
-    ])
-    if aperiodic_path is not None:
-        data = load_json(aperiodic_path)
-        aperiodic = data.get("aperiodic", data) if isinstance(data, dict) else data
-
+    
+    #這裡跟evaluater是連動的，要改一起改
     if sporadic is None:
-        # 4~7 jobs; e=1~3; w=5~20. Deterministic so the output is reproducible.
         sporadic = [
-            {"job_id": "s1", "r": 10, "e": 2, "d": 5, "w": 12, "preempt": 1},
-            {"job_id": "s2", "r": 18, "e": 3, "d": 6, "w": 18, "preempt": 0},
-            {"job_id": "s3", "r": 29, "e": 1, "d": 4, "w": 20, "preempt": 1},
-            {"job_id": "s4", "r": 46, "e": 2, "d": 5, "w": 10, "preempt": 1},
-            {"job_id": "s5", "r": 64, "e": 2, "d": 4, "w": 16, "preempt": 0},
+        
         ]
-
     if aperiodic is None:
-        # 7~13 jobs; e=1~4; w=5~15. Soft-deadline jobs.
         aperiodic = [
-            {"job_id": "a1", "r": 7, "e": 2, "d": 8, "w": 8, "preempt": 1},
-            {"job_id": "a2", "r": 12, "e": 1, "d": 5, "w": 10, "preempt": 1},
-            {"job_id": "a3", "r": 21, "e": 4, "d": 10, "w": 15, "preempt": 0},
-            {"job_id": "a4", "r": 25, "e": 2, "d": 6, "w": 9, "preempt": 1},
-            {"job_id": "a5", "r": 37, "e": 3, "d": 9, "w": 12, "preempt": 0},
-            {"job_id": "a6", "r": 52, "e": 1, "d": 4, "w": 5, "preempt": 1},
-            {"job_id": "a7", "r": 58, "e": 3, "d": 8, "w": 11, "preempt": 1},
-            {"job_id": "a8", "r": 66, "e": 2, "d": 5, "w": 13, "preempt": 0},
+    
         ]
 
     return normalize_demo_jobs(sporadic, "s"), normalize_demo_jobs(aperiodic, "a")
@@ -346,7 +355,7 @@ def expand_periodic_jobs(periodic_tasks: Dict[str, Dict[str, Any]], horizon: int
                 "scheduled_times": [],
                 "accepted": True,
             })
-    jobs.sort(key=lambda j: (j["deadline"], j["release"], j["job_id"]))
+    jobs.sort(key=lambda j: (j["deadline"], j["release"], j["job_id"])) # 排序：先看deadline，再看release 
     return jobs
 
 
@@ -412,12 +421,13 @@ def candidate_times(job: Dict[str, Any], schedule: Dict[int, Dict[str, Any]], pr
       1. Feasible before deadline.
       2. Low market-price hours first, because consuming energy during high-price hours reduces sell revenue.
       3. Earlier completion as tie-breaker for short response time.
+      此函式用於找任務可完整執行的時間（或者找不到return None）：先檢查r,d 再根據preempt與否分別找 有無可用的時間（能量供給足夠，時長要夠到任務能完成）
     """
     r, dline, e, w = job["release"], job["deadline"], job["execution_time"], job["energy_demand"]
     if r > H or r > dline:
         return None
 
-    def feasible(t: int) -> bool:
+    def feasible(t: int) -> bool: #看能量夠不夠的函式
         cap = max_load.get(t, 0.0) if isinstance(max_load, dict) else max_load
         return current_external_load(schedule, t) + w <= cap - reserve_after + 1e-9
 
@@ -427,10 +437,10 @@ def candidate_times(job: Dict[str, Any], schedule: Dict[int, Dict[str, Any]], pr
         for start in range(r, latest_start + 1):
             times = list(range(start, start + e))
             if all(1 <= tt <= H and feasible(tt) for tt in times):
-                # Prefer blocks that stay inside one frame; this respects the chosen f=3 static-frame idea.
+                # Prefer blocks that stay inside one frame; this respects the chosen static-frame idea.
                 frame_penalty = 0 if frame_id(times[0]) == frame_id(times[-1]) else 1000
                 avg_price = sum(prices.get(tt, 0.0) for tt in times) / len(times)
-                blocks.append((frame_penalty + avg_price, times[-1], times))
+                blocks.append((frame_penalty + avg_price, times[-1], times))    #(價值：1、最好在同一個frame 2、算平均價錢avg_price), (開始t),(結束t) 
         if not blocks:
             return None
         blocks.sort(key=lambda x: (x[0], x[1]))
@@ -449,7 +459,8 @@ def frame_id(t: int, frame_size: int = FRAME_SIZE) -> int:
 
 
 def place_job_energy(schedule: Dict[int, Dict[str, Any]], job: Dict[str, Any], times: List[int], provider: str = THERMAL_PRIMARY) -> None:
-    job["scheduled_times"] = sorted(times)
+    """標記任務執行時間 & 其耗能"""
+    job["scheduled_times"] = sorted(times) #times 即為此任務執行的時間
     for t in job["scheduled_times"]:
         jid = job["job_id"]
         if jid not in schedule[t]["k"]:
@@ -460,12 +471,12 @@ def place_job_energy(schedule: Dict[int, Dict[str, Any]], job: Dict[str, Any], t
 def schedule_periodic_jobs(schedule: Dict[int, Dict[str, Any]], periodic_jobs: List[Dict[str, Any]], prices: Dict[int, float], max_load: float) -> None:
     for job in periodic_jobs:
         # reserve is used to leave room for future sporadic jobs while constructing the day-ahead schedule.
-        times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=SPORADIC_RESERVE_MWH)
+        times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=SPORADIC_RESERVE_MWH) #排週期任務，保留20MHW 
         if times is None:
             # Fallback: still keep the periodic job feasible before deadline, because periodic jobs are mandatory.
-            times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=0.0)
+            times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=0.0)    #無法在保留20MHW 餘裕的前提下執行，嘗試不保留餘裕做
         if times is None:
-            raise RuntimeError(f"Cannot schedule mandatory periodic job {job['job_id']} within its deadline")
+            raise RuntimeError(f"Cannot schedule mandatory periodic job {job['job_id']} within its deadline") #不保留餘裕做能量仍不夠，任務集有問題
         place_job_energy(schedule, job, times)
 
 
@@ -475,31 +486,34 @@ def acceptance_test_and_insert_sporadic(schedule: Dict[int, Dict[str, Any]], spo
 
     for raw in sorted(sporadic_jobs, key=lambda x: (x["r"], x["job_id"])):
         job = convert_arrival_job(raw, "sporadic")
-        times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=0.0)
-
+        times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=APERIODIC_RESERVE_MWH) #看有無此 s任務 可執行的時間(在留餘裕下)
         if times is None:
+            times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=0.0) #看有無此 s任務 可執行的時間(不留餘裕)
+
+
+        if times is None:   #candidate_times沒能找到 可完整執行的時間
             for t in range(job["release"], min(job["deadline"], H) + 1):
                 schedule[t]["rejected_sporadic"].append(job["job_id"])
             job["accepted"] = False
             reason = "Reject: no feasible time slot with enough remaining energy capacity before hard deadline without moving periodic or already accepted hard-deadline jobs."
-            decision = "reject"
+            decision = (1==0)
         else:
             place_job_energy(schedule, job, times)
             job["accepted"] = True
             accepted_jobs.append(job)
             reason = "Accept: feasible time slot(s) found before hard deadline; insertion does not move existing hard-deadline jobs and keeps energy capacity constraints feasible."
-            decision = "accept"
+            decision = (1==1)
 
         log.append({
             "job_id": job["job_id"],
             "type": "sporadic",
-            "release": job["release"],
-            "deadline": job["deadline"],
+            "release_time": job["release"],
+            "ads_deadline": job["deadline"]-job["release"]+1,
             "execution_time": job["execution_time"],
             "energy_demand": job["energy_demand"],
             "preempt": job["preempt"],
-            "decision": decision,
-            "scheduled_times": job["scheduled_times"],
+            "accepted": decision,
+            "assigned_hours": job["scheduled_times"],
             "reason": reason,
         })
 
@@ -508,11 +522,11 @@ def acceptance_test_and_insert_sporadic(schedule: Dict[int, Dict[str, Any]], spo
 
 def schedule_aperiodic_waiting_queue(schedule: Dict[int, Dict[str, Any]], aperiodic_jobs: List[Dict[str, Any]], prices: Dict[int, float], max_load: float) -> List[Dict[str, Any]]:
     scheduled: List[Dict[str, Any]] = []
-    waiting = [convert_arrival_job(raw, "aperiodic") for raw in sorted(aperiodic_jobs, key=lambda x: (x["r"], x["job_id"]))]
+    waiting = [convert_arrival_job(raw, "aperiodic") for raw in sorted(aperiodic_jobs, key=lambda x: (x["d"], x["job_id"]))]
 
     for job in waiting:
         # First try to finish before soft deadline while preserving a small emergency reserve.
-        times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=APERIODIC_RESERVE_MWH)
+        times = candidate_times(job, schedule, prices, max_load=max_load, reserve_after=0.0)
         if times is None:
             # Soft-deadline fallback: finish by H even if tardy.
             late_job = dict(job)
@@ -537,7 +551,7 @@ def schedule_aperiodic_waiting_queue(schedule: Dict[int, Dict[str, Any]], aperio
 # Energy allocation: constant thermal reserve strategy
 # ============================================================
 
-def planned_generator_outputs(t: int, maps: Dict[str, Any]) -> Dict[str, float]:
+def planned_generator_outputs(t: int, maps: Dict[str, Any]) -> Dict[str, float]:#簡而言之，回傳各火力發電機最大可發電量（大概啦）
     """A ramp-feasible conservative unit-commitment plan.
 
     Both thermal units start from initial_energy=0. Therefore, they cannot jump
@@ -679,91 +693,188 @@ def validate_full_schedule(schedule: Dict[int, Dict[str, Any]], maps: Dict[str, 
     return {"constraint_violation_count": 0, "checked_hours": H, "checked_jobs": len(all_jobs)}
 
 
-# ============================================================
-# Evaluation metrics
-# ============================================================
-
-def completion_time(job: Dict[str, Any]) -> Optional[int]:
-    return max(job["scheduled_times"]) if job.get("scheduled_times") else None
-
-
-def response_time(job: Dict[str, Any]) -> Optional[int]:
-    c = completion_time(job)
-    return None if c is None else c - job["release"] + 1
-
-
-def evaluate(schedule: Dict[int, Dict[str, Any]], periodic_jobs: List[Dict[str, Any]], sporadic_jobs: List[Dict[str, Any]], aperiodic_jobs: List[Dict[str, Any]], raw_sporadic: List[Dict[str, Any]], maps: Dict[str, Any]) -> Dict[str, Any]:
-    hard_jobs = periodic_jobs + [j for j in sporadic_jobs if j.get("accepted", False)]
-    hard_misses = [j for j in hard_jobs if completion_time(j) is None or completion_time(j) > j["deadline"]]
-
-    soft_misses = [j for j in aperiodic_jobs if completion_time(j) is None or completion_time(j) > j["deadline"]]
-
-    all_scheduled_jobs = periodic_jobs + sporadic_jobs + aperiodic_jobs
-    tardiness_values = []
-    response_values = []
-    for j in all_scheduled_jobs:
-        if j["job_type"] == "sporadic" and not j.get("accepted", False):
-            continue
-        c = completion_time(j)
-        if c is None:
-            tardiness_values.append(H - j["deadline"] + 1)
-            continue
-        tardiness_values.append(max(0, c - j["deadline"]))
-        response_values.append(c - j["release"] + 1)
-
-    # Completion-time jitter: average absolute difference between consecutive completion times
-    # for instances generated by the same periodic task.
-    jitter_values = []
-    by_task: Dict[str, List[int]] = {}
-    for j in periodic_jobs:
-        c = completion_time(j)
-        if c is not None:
-            by_task.setdefault(j["task_id"], []).append(c)
-    for vals in by_task.values():
-        vals.sort()
-        for i in range(1, len(vals)):
-            jitter_values.append(abs(vals[i] - vals[i - 1]))
-
-    total_sporadic_e = sum(int(j["e"]) for j in raw_sporadic) or 1
-    completed_sporadic_e = sum(j["execution_time"] for j in sporadic_jobs if j.get("accepted") and completion_time(j) is not None and completion_time(j) <= j["deadline"])
-
-    generator_cost = 0.0
-    for t in range(1, H + 1):
-        for gid, g in maps["generators"].items():
-            p = float(schedule[t]["P"].get(gid, 0.0))
-            if p > 0:
-                generator_cost += float(g["cost_fixed"]) + float(g["cost_variable"]) * p
-
-    market_revenue = sum(maps["prices"].get(t, 0.0) * float(schedule[t]["sell"]) for t in range(1, H + 1))
-    objective_value = ALPHA_MISS_PENALTY * len(soft_misses) + generator_cost - market_revenue
-
-    return {
-        "hard_deadline_miss_rate": round(len(hard_misses) / len(hard_jobs), 6) if hard_jobs else 0.0,
-        "soft_deadline_miss_rate": round(len(soft_misses) / len(aperiodic_jobs), 6) if aperiodic_jobs else 0.0,
-        "average_tardiness": round(sum(tardiness_values) / len(tardiness_values), 6) if tardiness_values else 0.0,
-        "max_tardiness": max(tardiness_values) if tardiness_values else 0,
-        "average_response_time": round(sum(response_values) / len(response_values), 6) if response_values else 0.0,
-        "max_response_time": max(response_values) if response_values else 0,
-        "completion_time_jitter": round(sum(jitter_values) / len(jitter_values), 6) if jitter_values else 0.0,
-        "acceptance_test": {
-            "sporadic_total_jobs": len(raw_sporadic),
-            "sporadic_accepted_jobs": sum(1 for j in sporadic_jobs if j.get("accepted")),
-            "sporadic_rejected_jobs": sum(1 for j in sporadic_jobs if not j.get("accepted")),
-            "post_acceptance_violation_rate": 0.0,
-        },
-        "sporadic_value_rate": round(completed_sporadic_e / total_sporadic_e, 6),
-        "generator_cost": round(generator_cost, 6),
-        "market_revenue": round(market_revenue, 6),
-        "objective_value": round(objective_value, 6),
-        "periodic_average_response_time": round(sum(response_time(j) or 0 for j in periodic_jobs) / len(periodic_jobs), 6),
-        "periodic_max_response_time": max(response_time(j) or 0 for j in periodic_jobs),
-        "soft_missed_jobs": [j["job_id"] for j in soft_misses],
-        "hard_missed_jobs": [j["job_id"] for j in hard_misses],
-    }
-
-
 def export_schedule(schedule: Dict[int, Dict[str, Any]], output_path: str = "output/schedule_result.json") -> None:
     save_json({"schedule_result": [schedule[t] for t in range(1, H + 1)]}, output_path)
+
+
+def sell_all_solar(schedule: Dict[int, Dict[str, Any]], maps: Dict[str, Any]) -> None:
+    """
+    函數 1：將所有可用的太陽能（再生能源）全數發電並直接賣掉。
+    此函數會更新 schedule 中的 P[renewable_id] 並將電量加到 sell 中。
+    """
+    renewable_capacity = maps["renewable_capacity"]
+    renewable_forecast = maps["renewable_forecast"]
+
+    for t in range(1, H + 1):
+        total_solar_generated = 0.0
+        for rid, cap in renewable_capacity.items():
+            # 計算該小時理論上最大的太陽能發電量
+            available = float(cap) * float(renewable_forecast[rid].get(t, 0.0))
+            schedule[t]["P"][rid] = round(available, 6)
+            total_solar_generated += available
+        
+        # 將發出來的太陽能全數加入賣電計畫
+        schedule[t]["sell"] = round(schedule[t]["sell"] + total_solar_generated, 6)
+
+
+def optimize_battery_arbitrage(schedule: Dict[int, Dict[str, Any]], maps: Dict[str, Any]) -> None:
+    """
+    電池套利策略 — 符合所有數學限制式版本。
+
+    核心邏輯：
+      低電價時段：用已排定的「賣電」電力為電池充電（降低 sell，增加 k[chg_job][generator]）
+      高電價時段：放電並全部賣掉（增加 P[battery]，增加 sell）
+
+    嚴格遵守限制式：
+      Constraint 14  — 放電量 ≤ discharge_max
+      Constraint 15  — 充電量 ≤ charge_max
+      Constraint 16  — SOC_t = SOC_{t-1} + charge_t − P_i,t
+      Constraint 17  — soc_min ≤ SOC_t ≤ soc_max
+      Constraint 18  — P_i,t ≤ SOC_{t-1} − soc_min（用「前一小時」的 SOC）
+      Constraint 19  — 同一時間點不得同時充電又放電
+      Constraint 21  — k[chg_job][i] 中的 i 必須屬於 Ig（傳統機組），不可是儲能設備
+      Constraint 22  — sell ≥ 0
+      Constraint 23  — Sum(P) = Sum(k非充電) + Sum(k充電, 來自Ig/Ir) + sell
+    """
+    storages = maps["storages"]
+    generators = maps["generators"]   # Ig — 充電來源只能是傳統機組
+    prices = maps["prices"]
+    charging_jobs = maps["charging_jobs"]  # job_id → target storage_id
+
+    # 以 storage_id 為 key，建立 job_id 反查表（chg job id for each battery）
+    storage_to_chg_job: Dict[str, str] = {v: k for k, v in charging_jobs.items()}
+
+    # 計算電價中位數
+    price_values = sorted(prices.values())
+    median_price = price_values[len(price_values) // 2]
+
+    # 以「前一時間點結束後的 SOC」作為放電上限基準（Constraint 18）
+    # 初始值來自 soc_init（即 t=0 的 SOC，對應 schedule[1] 的「前一小時」）
+    prev_soc: Dict[str, float] = {
+        sid: float(s["soc_init"]) for sid, s in storages.items()
+    }
+
+    for t in range(1, H + 1):
+        p_t = prices.get(t, 0.0)
+
+        for sid, s in storages.items():
+            soc_max      = float(s["soc_max"])
+            soc_min      = float(s["soc_min"])
+            discharge_max = float(s["discharge_max"])
+            charge_max   = float(s.get("charge_max", discharge_max))
+
+            # 本時間點已有的放電量（來自先前步驟，理論上 Level-1 為 0）
+            existing_discharge = float(schedule[t]["P"].get(sid, 0.0))
+
+            # ── 找到對應此電池的充電 job id ──────────────────────────────
+            chg_job_id = storage_to_chg_job.get(sid)
+
+            # 本時間點已有的充電量（k[chg_job][generator] 加總）
+            existing_charge = 0.0
+            if chg_job_id and chg_job_id in schedule[t]["k"]:
+                existing_charge = sum(
+                    float(v) for v in schedule[t]["k"][chg_job_id].values()
+                )
+
+            # ── Constraint 19：同一時間點不可同時充放電 ──────────────────
+            # 若已有放電，跳過充電；若已有充電，跳過放電。
+            already_charging    = existing_charge  > 1e-9
+            already_discharging = existing_discharge > 1e-9
+
+            if p_t < median_price and not already_discharging:
+                # ── 低電價：嘗試充電 ──────────────────────────────────────
+                # Constraint 17：SOC 不得超過 soc_max
+                room_to_charge = soc_max - prev_soc[sid]
+                # Constraint 15：不超過 charge_max
+                # 只能從「原本預計賣掉的電」中取用（保持 Constraint 22：sell ≥ 0）
+                available_sell = max(0.0, float(schedule[t]["sell"]))
+                charge_amount  = min(room_to_charge, charge_max, available_sell)
+
+                if charge_amount > 1e-9 and chg_job_id is not None:
+                    # ── Constraint 21：充電來源必須是傳統機組（Ig）──────
+                    # 從 schedule[t]["P"] 中選出傳統機組且還有剩餘容量者
+                    # 剩餘容量 = P[g] - 已分配給其他 jobs 的量（Constraint 20）
+                    remaining_gen: Dict[str, float] = {}
+                    for gid in generators:
+                        gen_output = float(schedule[t]["P"].get(gid, 0.0))
+                        already_allocated = sum(
+                            float(schedule[t]["k"].get(jid, {}).get(gid, 0.0))
+                            for jid in schedule[t]["k"]
+                        )
+                        remaining_gen[gid] = max(0.0, gen_output - already_allocated)
+
+                    total_remaining = sum(remaining_gen.values())
+                    # 充電量受限於傳統機組實際剩餘容量（即原 sell 的來源）
+                    charge_amount = min(charge_amount, total_remaining)
+
+                    if charge_amount > 1e-9:
+                        # 從傳統機組剩餘容量中分配充電電量（Constraint 21）
+                        new_chg_alloc: Dict[str, float] = {}
+                        need = charge_amount
+                        for gid in sorted(remaining_gen):
+                            take = min(need, remaining_gen[gid])
+                            if take > 1e-9:
+                                new_chg_alloc[gid] = round(take, 6)
+                                need -= take
+                            if need <= 1e-9:
+                                break
+
+                        actual_charge = round(charge_amount - need, 6)
+
+                        if actual_charge > 1e-9:
+                            # 更新 k[chg_job_id]：合併舊分配（Constraint 21）
+                            if chg_job_id not in schedule[t]["k"]:
+                                schedule[t]["k"][chg_job_id] = {}
+                            for gid, amt in new_chg_alloc.items():
+                                prev_val = schedule[t]["k"][chg_job_id].get(gid, 0.0)
+                                schedule[t]["k"][chg_job_id][gid] = round(
+                                    prev_val + amt, 6
+                                )
+
+                            # 降低 sell（Constraint 22 保證 sell ≥ 0）
+                            schedule[t]["sell"] = round(
+                                schedule[t]["sell"] - actual_charge, 6
+                            )
+
+                            # 更新 SOC（Constraint 16）
+                            new_soc = prev_soc[sid] + actual_charge
+                            # Constraint 17 雙重保險
+                            new_soc = min(new_soc, soc_max)
+                            schedule[t]["soc"][sid] = round(new_soc, 6)
+                            prev_soc[sid] = new_soc
+                            continue   # 本時間點已充電，不再放電
+
+            if p_t >= median_price and not already_charging:
+                # ── 高電價：嘗試放電並全賣 ───────────────────────────────
+                # Constraint 18：放電量 ≤ SOC_{t-1} − soc_min（用「前一小時」SOC）
+                available_to_discharge = prev_soc[sid] - soc_min
+                # Constraint 14：放電量 ≤ discharge_max
+                discharge_amount = min(available_to_discharge, discharge_max)
+                discharge_amount = max(0.0, discharge_amount)
+
+                if discharge_amount > 1e-9:
+                    # 更新 P[sid]（Constraint 14）
+                    schedule[t]["P"][sid] = round(
+                        existing_discharge + discharge_amount, 6
+                    )
+                    # 放出的電全數賣掉（增加 sell）
+                    schedule[t]["sell"] = round(
+                        schedule[t]["sell"] + discharge_amount, 6
+                    )
+                    # 更新 SOC（Constraint 16）
+                    new_soc = prev_soc[sid] - discharge_amount
+                    # Constraint 17 雙重保險
+                    new_soc = max(new_soc, soc_min)
+                    schedule[t]["soc"][sid] = round(new_soc, 6)
+                    prev_soc[sid] = new_soc
+                    continue
+
+            # ── 本時間點無充放電動作：SOC 維持不變 ──────────────────────
+            schedule[t]["soc"][sid] = round(prev_soc[sid], 6)
+            # prev_soc 不變
+
+
+
 
 
 # ============================================================
@@ -778,38 +889,33 @@ def main() -> None:
     task_set_summary = validate_periodic_task_set(periodic_tasks, FRAME_SIZE)
     print("Periodic task set summary:", task_set_summary)
 
-    capacity_by_hour = build_capacity_by_hour(maps)
+    capacity_by_hour = build_capacity_by_hour(maps) #
     schedule = init_schedule(processor_data, H)
 
     periodic_jobs = expand_periodic_jobs(periodic_tasks, H)
-    schedule_periodic_jobs(schedule, periodic_jobs, maps["prices"], capacity_by_hour)
+    schedule_periodic_jobs(schedule, periodic_jobs, maps["prices"], capacity_by_hour)   #capacity_by_hour是這個時間下最多能發的電
 
     raw_sporadic, raw_aperiodic = load_demo_jobs()
     accepted_sporadic, acceptance_log = acceptance_test_and_insert_sporadic(schedule, raw_sporadic, maps["prices"], capacity_by_hour)
     scheduled_aperiodic = schedule_aperiodic_waiting_queue(schedule, raw_aperiodic, maps["prices"], capacity_by_hour)
 
     finalize_energy_balance(schedule, maps)
-    validation_summary = validate_full_schedule(schedule, maps, periodic_jobs + accepted_sporadic + scheduled_aperiodic)
-
-    evaluation = evaluate(schedule, periodic_jobs, accepted_sporadic, scheduled_aperiodic, raw_sporadic, maps)
-    evaluation["task_set_summary"] = task_set_summary
-    evaluation["validation_summary"] = validation_summary
-    evaluation["reserve_strategy"] = {
-        "selected_frame_size": FRAME_SIZE,
-        "day_ahead_sporadic_reserve_mwh": SPORADIC_RESERVE_MWH,
-        "aperiodic_reserve_mwh": APERIODIC_RESERVE_MWH,
-        "primary_generator": THERMAL_PRIMARY,
-        "planned_thermal_capacity_by_hour": capacity_by_hour,
-        "strategy": "Periodic jobs are fixed first; sporadic jobs are inserted only into remaining capacity without moving existing hard-deadline jobs; aperiodic jobs wait in a queue and use remaining slack."
-    }
+    
+    # =========================================================
+    # 在這裡插入這兩行，完美融入原系統，無痛升級綠能與套利
+    sell_all_solar(schedule, maps)          # 1. 太陽能全賣
+    optimize_battery_arbitrage(schedule, maps) # 2. 電池低買高賣
+    # =========================================================
+    
+    
+    
+    validate_full_schedule(schedule, maps, periodic_jobs + accepted_sporadic + scheduled_aperiodic)
 
     export_schedule(schedule, "output/schedule_result.json")
-    save_json(evaluation, "output/evaluation_results.json")
     save_json({"acceptance_test_log": acceptance_log}, "output/acceptance_test_log.json")
 
     print("Done.")
     print("Wrote output/schedule_result.json")
-    print("Wrote output/evaluation_results.json")
     print("Wrote output/acceptance_test_log.json")
 
 
