@@ -3,34 +3,39 @@
   "soft_deadline_miss_rate": 0.0,
   "average_tardiness": 0.0,
   "max_tardiness": 0,
-  "average_response_time": 2.911111,
-  "max_response_time": 8,
-  "completion_time_jitter": 1.195338,
+  "average_response_time": 3.512821,
+  "max_response_time": 13,
+  "completion_time_jitter": 0.741667,
   "acceptance_test": {
-    "sporadic_total_jobs": 5,
-    "sporadic_accepted_jobs": 5,
+    "sporadic_total_jobs": 2,
+    "sporadic_accepted_jobs": 2,
     "sporadic_rejected_jobs": 0,
     "post_acceptance_violation_rate": 0.0
   },
   "sporadic_value_rate": 1.0,
   "generator_cost": 588870.0,
   "battery_aging_cost": 780.0,
-  "market_revenue": 501903.942844,
-  "objective_value": 87746.057156,
-  "periodic_average_response_time": 2.96875,
-  "periodic_max_response_time": 8,
+  "market_revenue": 508869.741373,
+  "sell_commitment_penalty": 247.984123,
+  "objective_value": 81028.24275,
+  "periodic_average_response_time": 2.441176,
+  "periodic_max_response_time": 7,
   "soft_missed_jobs": [],
   "hard_missed_jobs": [],
   "advanced_dispatch_summary": {
-    "rolling_window_hours": 3,
+    "rolling_window_hours": 4,
     "low_price_threshold": 20.0,
     "high_price_threshold": 83.0,
     "charge_efficiency": 0.95,
     "discharge_efficiency": 0.9,
+    "self_discharge_rate": 0.0005,
+    "soc_dependent_charge_ratio": 0.6,
+    "soc_dependent_discharge_ratio": 0.6,
     "battery_aging_cost_per_mwh": 5.0,
     "battery_aging_cost": 780.0,
-    "battery_charge_total_mwh": 121.02924,
-    "battery_discharge_total_mwh": 34.97076,
+    "battery_charge_total_mwh": 122.169948,
+    "battery_discharge_total_mwh": 33.830052,
+    "battery_self_discharge_loss_total_mwh": 4.896433,
     "battery_throughput_used_mwh": {
       "battery_1": 96.0,
       "battery_2": 60.0
@@ -39,9 +44,13 @@
       "battery_1": 96.0,
       "battery_2": 60.0
     },
-    "pv_used_for_jobs_mwh": 392.828,
-    "pv_used_for_charging_mwh": 92.088842,
-    "pv_sold_mwh": 1031.515158
+    "pv_used_for_jobs_mwh": 330.480223,
+    "pv_used_for_charging_mwh": 82.94033,
+    "pv_sold_mwh": 1102.400108,
+    "day_ahead_sell_commitment_total_mwh": 7837.0,
+    "sell_commitment_shortfall_total_mwh": 10.751255,
+    "sell_commitment_penalty_rate": 0.25,
+    "sell_commitment_penalty": 247.984123
   },
   "level2_relaxed_assumptions": [
     "renewable_actual_output_differs_from_forecast",
@@ -51,7 +60,11 @@
     "battery_soc_update_with_efficiency",
     "battery_aging_cost",
     "battery_daily_throughput_limit",
-    "rolling_corrective_dispatch_every_3_hours",
+    "battery_self_discharge",
+    "soc_dependent_charge_power_limit",
+    "soc_dependent_discharge_power_limit",
+    "day_ahead_sell_commitment_shortfall_penalty",
+    "rolling_corrective_dispatch_every_4_hours",
     "renewable_surplus_charges_battery_before_market_sale",
     "market_aware_battery_discharge_in_high_price_hours"
   ],
@@ -66,8 +79,8 @@
     "notation_and_constraints": [
       {
         "name": "Actual renewable availability",
-        "notation": "A_{r,t}=clip(F_{r,t}*theta_{r,t},0,1)",
-        "text": "The advanced scheduler observes actual renewable availability, which may differ from forecast.",
+        "notation": "theta_{r,t}=1+0.1*sin(2*pi*t/24), A_{r,t}=clip(F_{r,t}*theta_{r,t},0,1)",
+        "text": "The advanced scheduler observes actual renewable availability within +/-10% of the forecast.",
         "formula": "0 <= P^R_{r,t} <= Cap_r * A_{r,t}"
       },
       {
@@ -89,9 +102,27 @@
         "formula": "sum_t (Chg_{b,t}+Dis_{b,t}) <= L_b"
       },
       {
+        "name": "Battery self-discharge",
+        "notation": "rho_b",
+        "text": "Stored battery energy decays slightly over time even when it is not used.",
+        "formula": "SOC_{b,t}=max(SOC_min_b,(1-rho_b)SOC_{b,t-1})+eta_ch Chg_{b,t}-Dis_{b,t}/eta_dis"
+      },
+      {
+        "name": "SOC-dependent discharge power limit",
+        "notation": "gamma_dis",
+        "text": "Battery discharge power is reduced when SOC is close to the minimum level.",
+        "formula": "Dis_{b,t} <= min(Dis_max_b, gamma_dis * eta_dis * max(0,SOC'_{b,t}-SOC_min_b))"
+      },
+      {
+        "name": "SOC-dependent charge power limit",
+        "notation": "gamma_ch",
+        "text": "Battery charge power is reduced when SOC is close to the maximum level.",
+        "formula": "Chg_{b,t} <= min(Chg_max_b, gamma_ch * max(0,SOC_max_b-SOC''_{b,t})/eta_ch)"
+      },
+      {
         "name": "Rolling update",
-        "notation": "Delta=3 hours",
-        "text": "Every 3 hours, actual renewable data is observed and energy dispatch is corrected.",
+        "notation": "Delta=4 hours",
+        "text": "Every 4 hours, actual renewable data is observed and energy dispatch is corrected.",
         "formula": "k^adv_{j,i,t} can be redistributed, but hard-deadline x_{j,t} is fixed."
       },
       {
@@ -119,6 +150,12 @@
         "formula": "Chg_{b,t}>0 only if lambda_t<=lambda_low or Surplus^R_t>0; Dis_{b,t}>0 only if lambda_t>=lambda_high"
       },
       {
+        "name": "Day-ahead sell commitment shortfall penalty",
+        "notation": "S^DA_t, pi_cancel",
+        "text": "If real-time market sale is lower than the day-ahead sell commitment, the shortfall incurs a penalty.",
+        "formula": "C_cancel=sum_t pi_cancel * lambda_t * max(0,S^DA_t-S_t)"
+      },
+      {
         "name": "Aperiodic soft-deadline policy",
         "notation": "Miss_j, T_j",
         "text": "Aperiodic jobs do not receive hard-deadline acceptance tests; late completion is recorded as soft miss and tardiness.",
@@ -127,8 +164,8 @@
       {
         "name": "Advanced objective",
         "notation": "F_adv",
-        "text": "The objective includes aperiodic misses, thermal cost, battery aging, and market revenue.",
-        "formula": "F_adv=alpha*miss_a+generator_cost+battery_aging_cost-market_revenue"
+        "text": "The objective includes aperiodic misses, thermal cost, battery aging, sell-commitment penalty, and market revenue.",
+        "formula": "F_adv=alpha*miss_a+generator_cost+battery_aging_cost+C_cancel-market_revenue"
       }
     ]
   }

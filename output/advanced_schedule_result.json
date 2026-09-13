@@ -7,14 +7,19 @@
         "thermal_2": 20.0,
         "pv_1": 0.0,
         "pv_2": 0.0,
-        "battery_1": 0.0,
-        "battery_2": 0.0
+        "battery_1": 13.48785,
+        "battery_2": 2.51215
       },
-      "k": {},
+      "k": {
+        "p1_1": {
+          "battery_1": 13.48785,
+          "battery_2": 2.51215
+        }
+      },
       "sell": 35.0,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.991,
+        "battery_2": 22.196222
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -23,13 +28,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.98,
+            "uncertainty_factor": 1.025882,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.09,
+            "uncertainty_factor": 1.025882,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -39,11 +44,21 @@
           "battery_2": 0.0
         },
         "battery_discharge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 13.48785,
+          "battery_2": 2.51215
+        },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.0225,
+          "battery_2": 0.0125
         },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 19.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -56,11 +71,15 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 70.0,
+      "k": {
+        "p1_1": {
+          "thermal_1": 16.0
+        }
+      },
+      "sell": 54.0,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.976005,
+        "battery_2": 22.185124
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -69,7 +88,7 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.94,
+            "uncertainty_factor": 1.05,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
@@ -88,8 +107,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014995,
+          "battery_2": 0.011098
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 54.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -103,14 +132,30 @@
         "battery_2": 0.0
       },
       "k": {
+        "a2": {
+          "thermal_1": 10.0
+        },
         "p1_1": {
-          "thermal_1": 17.0
+          "thermal_1": 16.0
+        },
+        "p3_1": {
+          "thermal_1": 18.0
+        },
+        "p5_1": {
+          "thermal_1": 1.0,
+          "thermal_2": 9.0
+        },
+        "p6_1": {
+          "thermal_2": 8.0
+        },
+        "s1": {
+          "thermal_2": 15.0
         }
       },
-      "sell": 73.0,
+      "sell": 13.0,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.961016,
+        "battery_2": 22.174032
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -119,13 +164,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.9,
+            "uncertainty_factor": 1.070711,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.01,
+            "uncertainty_factor": 1.070711,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -138,8 +183,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014988,
+          "battery_2": 0.011093
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 13.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -152,26 +207,30 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 105.0,
+      "k": {
+        "p1_1": {
+          "thermal_1": 16.0
+        }
+      },
+      "sell": 89.0,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.946036,
+        "battery_2": 22.162945
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 4,
+        "rolling_window_start": 1,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.07,
+            "uncertainty_factor": 1.086603,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.97,
+            "uncertainty_factor": 1.086603,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -184,8 +243,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014981,
+          "battery_2": 0.011087
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 89.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -199,35 +268,35 @@
         "battery_2": 0.0
       },
       "k": {
-        "p1_1": {
-          "thermal_1": 17.0
-        },
-        "p4_1": {
+        "p2_1": {
           "thermal_1": 14.0
         },
-        "p6_1": {
-          "thermal_1": 11.0
+        "p3_1": {
+          "thermal_1": 18.0
+        },
+        "s1": {
+          "thermal_1": 15.0
         }
       },
-      "sell": 78.0,
+      "sell": 73.0,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.931063,
+        "battery_2": 22.151863
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 4,
+        "rolling_window_start": 5,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.03,
+            "uncertainty_factor": 1.096593,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.93,
+            "uncertainty_factor": 1.096593,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -240,8 +309,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014973,
+          "battery_2": 0.011081
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 73.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -255,26 +334,23 @@
         "battery_2": 0.0
       },
       "k": {
-        "p4_1": {
+        "p2_1": {
           "thermal_1": 14.0
-        },
-        "p6_1": {
-          "thermal_1": 11.0
         }
       },
-      "sell": 100.0,
+      "sell": 111.0,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.916097,
+        "battery_2": 22.140787
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 4,
+        "rolling_window_start": 5,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.99,
+            "uncertainty_factor": 1.1,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
@@ -293,8 +369,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014966,
+          "battery_2": 0.011076
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -302,39 +388,39 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 1.71,
-        "pv_2": 2.544,
+        "pv_1": 1.973867,
+        "pv_2": 2.631822,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p6_1": {
-          "pv_1": 1.71,
-          "pv_2": 2.544,
-          "thermal_1": 6.746
+        "p2_1": {
+          "pv_1": 1.973867,
+          "pv_2": 2.631822,
+          "thermal_1": 9.394311
         }
       },
-      "sell": 118.254,
+      "sell": 115.605689,
       "soc": {
-        "battery_1": 45.0,
-        "battery_2": 25.0
+        "battery_1": 29.901139,
+        "battery_2": 22.129717
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 7,
+        "rolling_window_start": 5,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.03,
-            "uncertainty_factor": 0.95,
-            "actual_ratio": 0.0285,
-            "actual_available_mwh": 1.71
+            "uncertainty_factor": 1.096593,
+            "actual_ratio": 0.032898,
+            "actual_available_mwh": 1.973867
           },
           "pv_2": {
             "forecast_ratio": 0.03,
-            "uncertainty_factor": 1.06,
-            "actual_ratio": 0.0318,
-            "actual_available_mwh": 2.544
+            "uncertainty_factor": 1.096593,
+            "actual_ratio": 0.032898,
+            "actual_available_mwh": 2.631822
           }
         },
         "battery_charge_mwh": {
@@ -345,8 +431,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014958,
+          "battery_2": 0.01107
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -354,42 +450,45 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 8.736,
-        "pv_2": 13.056,
+        "pv_1": 10.431384,
+        "pv_2": 13.908513,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
+        "p2_1": {
+          "pv_1": 10.431384,
+          "pv_2": 3.568616
+        },
         "battery_1_chg": {
-          "pv_1": 8.736,
-          "pv_2": 11.264
+          "pv_2": 10.339897,
+          "thermal_1": 9.660103
         },
         "battery_2_chg": {
-          "pv_2": 1.792,
-          "thermal_1": 13.208
+          "thermal_1": 15.0
         }
       },
-      "sell": 111.792,
+      "sell": 100.339897,
       "soc": {
-        "battery_1": 64.0,
-        "battery_2": 39.25
+        "battery_1": 48.886189,
+        "battery_2": 36.368652
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 7,
+        "rolling_window_start": 5,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 0.91,
-            "actual_ratio": 0.1456,
-            "actual_available_mwh": 8.736
+            "uncertainty_factor": 1.086603,
+            "actual_ratio": 0.173856,
+            "actual_available_mwh": 10.431384
           },
           "pv_2": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 1.02,
-            "actual_ratio": 0.1632,
-            "actual_available_mwh": 13.056
+            "uncertainty_factor": 1.086603,
+            "actual_ratio": 0.173856,
+            "actual_available_mwh": 13.908513
           }
         },
         "battery_charge_mwh": {
@@ -400,8 +499,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.014951,
+          "battery_2": 0.011065
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 10.660103,
+        "sell_commitment_penalty": 247.847395
       }
     },
     {
@@ -409,53 +518,63 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 16.2,
-        "pv_2": 19.6,
+        "pv_1": 16.06066,
+        "pv_2": 21.414214,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
         "battery_1_chg": {
-          "pv_1": 16.2,
-          "pv_2": 3.8
+          "pv_1": 16.06066,
+          "pv_2": 3.93934
         },
         "battery_2_chg": {
-          "pv_2": 15.0
+          "pv_2": 14.936547
         }
       },
-      "sell": 125.8,
+      "sell": 127.538327,
       "soc": {
-        "battery_1": 83.0,
-        "battery_2": 53.5
+        "battery_1": 67.861746,
+        "battery_2": 50.540187
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 7,
+        "rolling_window_start": 9,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.25,
-            "uncertainty_factor": 1.08,
-            "actual_ratio": 0.27,
-            "actual_available_mwh": 16.2
+            "uncertainty_factor": 1.070711,
+            "actual_ratio": 0.267678,
+            "actual_available_mwh": 16.06066
           },
           "pv_2": {
             "forecast_ratio": 0.25,
-            "uncertainty_factor": 0.98,
-            "actual_ratio": 0.245,
-            "actual_available_mwh": 19.6
+            "uncertainty_factor": 1.070711,
+            "actual_ratio": 0.267678,
+            "actual_available_mwh": 21.414214
           }
         },
         "battery_charge_mwh": {
           "battery_1": 20.0,
-          "battery_2": 15.0
+          "battery_2": 14.936547
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.024443,
+          "battery_2": 0.018184
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -463,53 +582,70 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 18.72,
-        "pv_2": 22.56,
+        "pv_1": 18.9,
+        "pv_2": 25.2,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
+        "a2": {
+          "pv_1": 10.0
+        },
+        "s1": {
+          "pv_1": 8.9,
+          "pv_2": 6.1
+        },
         "battery_1_chg": {
-          "pv_1": 17.894737
+          "pv_2": 19.1,
+          "thermal_1": 0.9
         },
         "battery_2_chg": {
-          "pv_1": 0.825263,
-          "pv_2": 6.016842
+          "thermal_1": 5.990579
         }
       },
-      "sell": 141.543158,
+      "sell": 118.109421,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 86.827815,
+        "battery_2": 56.205967
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 10,
+        "rolling_window_start": 9,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.3,
-            "uncertainty_factor": 1.04,
-            "actual_ratio": 0.312,
-            "actual_available_mwh": 18.72
+            "uncertainty_factor": 1.05,
+            "actual_ratio": 0.315,
+            "actual_available_mwh": 18.9
           },
           "pv_2": {
             "forecast_ratio": 0.3,
-            "uncertainty_factor": 0.94,
-            "actual_ratio": 0.282,
-            "actual_available_mwh": 22.56
+            "uncertainty_factor": 1.05,
+            "actual_ratio": 0.315,
+            "actual_available_mwh": 25.2
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 17.894737,
-          "battery_2": 6.842105
+          "battery_1": 20.0,
+          "battery_2": 5.990579
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.033931,
+          "battery_2": 0.02527
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 100.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -517,45 +653,66 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 13.8,
-        "pv_2": 16.56,
+        "pv_1": 14.15717,
+        "pv_2": 18.876227,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 155.36,
+      "k": {
+        "a2": {
+          "pv_1": 10.0
+        },
+        "battery_1_chg": {
+          "pv_1": 4.15717,
+          "pv_2": 4.189524
+        },
+        "battery_2_chg": {
+          "pv_2": 2.413981
+        }
+      },
+      "sell": 137.272722,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 94.71376,
+        "battery_2": 58.471146
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 10,
+        "rolling_window_start": 9,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.23,
-            "uncertainty_factor": 1.0,
-            "actual_ratio": 0.23,
-            "actual_available_mwh": 13.8
+            "uncertainty_factor": 1.025882,
+            "actual_ratio": 0.235953,
+            "actual_available_mwh": 14.15717
           },
           "pv_2": {
             "forecast_ratio": 0.23,
-            "uncertainty_factor": 0.9,
-            "actual_ratio": 0.207,
-            "actual_available_mwh": 16.56
+            "uncertainty_factor": 1.025882,
+            "actual_ratio": 0.235953,
+            "actual_available_mwh": 18.876227
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 8.346694,
+          "battery_2": 2.413981
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.043414,
+          "battery_2": 0.028103
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 115.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -563,60 +720,82 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 15.552,
-        "pv_2": 23.112,
+        "pv_1": 16.2,
+        "pv_2": 21.6,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
         "a1": {
-          "pv_1": 8.0
+          "pv_1": 15.0
         },
         "a2": {
-          "pv_1": 7.552,
-          "pv_2": 2.448
+          "pv_1": 1.2,
+          "pv_2": 8.8
         },
-        "p5_1": {
-          "pv_2": 15.0
+        "p4_1": {
+          "pv_2": 12.0
         },
-        "s1": {
-          "pv_2": 5.664,
-          "thermal_1": 6.336
+        "p5_2": {
+          "pv_2": 0.8,
+          "thermal_1": 9.2
+        },
+        "p6_2": {
+          "thermal_1": 8.0
+        },
+        "s2": {
+          "thermal_1": 10.0
+        },
+        "battery_1_chg": {
+          "thermal_1": 3.368587
+        },
+        "battery_2_chg": {
+          "thermal_1": 0.984057
         }
       },
-      "sell": 118.664,
+      "sell": 93.447356,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 97.866561,
+        "battery_2": 59.376764
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 10,
+        "rolling_window_start": 9,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.27,
-            "uncertainty_factor": 0.96,
-            "actual_ratio": 0.2592,
-            "actual_available_mwh": 15.552
+            "uncertainty_factor": 1.0,
+            "actual_ratio": 0.27,
+            "actual_available_mwh": 16.2
           },
           "pv_2": {
             "forecast_ratio": 0.27,
-            "uncertainty_factor": 1.07,
-            "actual_ratio": 0.2889,
-            "actual_available_mwh": 23.112
+            "uncertainty_factor": 1.0,
+            "actual_ratio": 0.27,
+            "actual_available_mwh": 21.6
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 3.368587,
+          "battery_2": 0.984057
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.047357,
+          "battery_2": 0.029236
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 60.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -624,27 +803,40 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 14.904,
-        "pv_2": 22.248,
+        "pv_1": 15.780713,
+        "pv_2": 21.040951,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
         "a1": {
-          "pv_1": 8.0
+          "pv_1": 15.0
         },
-        "p4_2": {
-          "pv_1": 6.904,
-          "pv_2": 7.096
+        "a3": {
+          "pv_1": 0.780713,
+          "pv_2": 11.219287
         },
-        "s1": {
-          "pv_2": 12.0
+        "p4_1": {
+          "pv_2": 9.821664,
+          "thermal_1": 2.178336
+        },
+        "p5_3": {
+          "thermal_1": 10.0
+        },
+        "s2": {
+          "thermal_1": 10.0
+        },
+        "battery_1_chg": {
+          "thermal_1": 1.37834
+        },
+        "battery_2_chg": {
+          "thermal_1": 0.412373
         }
       },
-      "sell": 128.152,
+      "sell": 101.030951,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.127051,
+        "battery_2": 59.73883
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -653,27 +845,37 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.27,
-            "uncertainty_factor": 0.92,
-            "actual_ratio": 0.2484,
-            "actual_available_mwh": 14.904
+            "uncertainty_factor": 0.974118,
+            "actual_ratio": 0.263012,
+            "actual_available_mwh": 15.780713
           },
           "pv_2": {
             "forecast_ratio": 0.27,
-            "uncertainty_factor": 1.03,
-            "actual_ratio": 0.2781,
-            "actual_available_mwh": 22.248
+            "uncertainty_factor": 0.974118,
+            "actual_ratio": 0.263012,
+            "actual_available_mwh": 21.040951
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 1.37834,
+          "battery_2": 0.412373
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.048933,
+          "battery_2": 0.029688
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 66.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -681,21 +883,34 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 10.464,
-        "pv_2": 12.672,
+        "pv_1": 9.12,
+        "pv_2": 12.16,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p4_2": {
-          "pv_1": 10.464,
-          "pv_2": 3.536
+        "a1": {
+          "pv_1": 9.12,
+          "pv_2": 5.88
+        },
+        "a3": {
+          "pv_2": 6.28,
+          "thermal_1": 5.72
+        },
+        "s2": {
+          "thermal_1": 10.0
+        },
+        "battery_1_chg": {
+          "thermal_1": 0.582639
+        },
+        "battery_2_chg": {
+          "thermal_1": 0.183814
         }
       },
-      "sell": 134.136,
+      "sell": 108.513547,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.630995,
+        "battery_2": 59.883584
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -704,27 +919,37 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 1.09,
-            "actual_ratio": 0.1744,
-            "actual_available_mwh": 10.464
+            "uncertainty_factor": 0.95,
+            "actual_ratio": 0.152,
+            "actual_available_mwh": 9.12
           },
           "pv_2": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 0.99,
-            "actual_ratio": 0.1584,
-            "actual_available_mwh": 12.672
+            "uncertainty_factor": 0.95,
+            "actual_ratio": 0.152,
+            "actual_available_mwh": 12.16
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 0.582639,
+          "battery_2": 0.183814
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049564,
+          "battery_2": 0.029869
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 88.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -732,16 +957,31 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 6.93,
-        "pv_2": 8.36,
+        "pv_1": 6.13331,
+        "pv_2": 8.177746,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 140.29,
+      "k": {
+        "a3": {
+          "pv_1": 6.13331,
+          "pv_2": 5.86669
+        },
+        "s2": {
+          "pv_2": 2.311056,
+          "thermal_1": 7.688944
+        },
+        "battery_1_chg": {
+          "thermal_1": 0.264518
+        },
+        "battery_2_chg": {
+          "thermal_1": 0.092436
+        }
+      },
+      "sell": 116.954102,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.832472,
+        "battery_2": 59.941457
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -750,27 +990,37 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.11,
-            "uncertainty_factor": 1.05,
-            "actual_ratio": 0.1155,
-            "actual_available_mwh": 6.93
+            "uncertainty_factor": 0.929289,
+            "actual_ratio": 0.102222,
+            "actual_available_mwh": 6.13331
           },
           "pv_2": {
             "forecast_ratio": 0.11,
-            "uncertainty_factor": 0.95,
-            "actual_ratio": 0.1045,
-            "actual_available_mwh": 8.36
+            "uncertainty_factor": 0.929289,
+            "actual_ratio": 0.102222,
+            "actual_available_mwh": 8.177746
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 0.264518,
+          "battery_2": 0.092436
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049815,
+          "battery_2": 0.029942
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 103.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -778,51 +1028,67 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 3.636,
-        "pv_2": 4.368,
+        "pv_1": 3.288231,
+        "pv_2": 4.384308,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p2_1": {
-          "pv_1": 3.636,
-          "pv_2": 4.368,
-          "thermal_1": 9.996
+        "a3": {
+          "pv_1": 3.288231,
+          "pv_2": 4.384308,
+          "thermal_1": 4.327461
+        },
+        "battery_1_chg": {
+          "thermal_1": 0.137333
+        },
+        "battery_2_chg": {
+          "thermal_1": 0.055903
         }
       },
-      "sell": 115.004,
+      "sell": 120.479303,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.913022,
+        "battery_2": 59.964595
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 16,
+        "rolling_window_start": 13,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.06,
-            "uncertainty_factor": 1.01,
-            "actual_ratio": 0.0606,
-            "actual_available_mwh": 3.636
+            "uncertainty_factor": 0.913397,
+            "actual_ratio": 0.054804,
+            "actual_available_mwh": 3.288231
           },
           "pv_2": {
             "forecast_ratio": 0.06,
-            "uncertainty_factor": 0.91,
-            "actual_ratio": 0.0546,
-            "actual_available_mwh": 4.368
+            "uncertainty_factor": 0.913397,
+            "actual_ratio": 0.054804,
+            "actual_available_mwh": 4.384308
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 0.137333,
+          "battery_2": 0.055903
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049916,
+          "battery_2": 0.029971
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 113.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -830,57 +1096,67 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 2.328,
-        "pv_2": 3.456,
+        "pv_1": 2.168178,
+        "pv_2": 2.890904,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p2_1": {
-          "pv_1": 2.328,
-          "pv_2": 3.456,
-          "thermal_1": 12.216
+        "p6_3": {
+          "pv_1": 2.168178,
+          "pv_2": 2.890904,
+          "thermal_1": 2.940918
         },
-        "p5_2": {
-          "thermal_1": 15.0
+        "battery_1_chg": {
+          "thermal_1": 0.086485
         },
-        "p6_2": {
-          "thermal_1": 11.0
+        "battery_2_chg": {
+          "thermal_1": 0.041298
         }
       },
-      "sell": 86.784,
+      "sell": 121.931299,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.945226,
+        "battery_2": 59.973845
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 16,
+        "rolling_window_start": 17,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.04,
-            "uncertainty_factor": 0.97,
-            "actual_ratio": 0.0388,
-            "actual_available_mwh": 2.328
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.036136,
+            "actual_available_mwh": 2.168178
           },
           "pv_2": {
             "forecast_ratio": 0.04,
-            "uncertainty_factor": 1.08,
-            "actual_ratio": 0.0432,
-            "actual_available_mwh": 3.456
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.036136,
+            "actual_available_mwh": 2.890904
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 0.086485,
+          "battery_2": 0.041298
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049957,
+          "battery_2": 0.029982
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 117.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -888,54 +1164,62 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 1.116,
-        "pv_2": 1.664,
+        "pv_1": 1.08,
+        "pv_2": 1.44,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p1_2": {
-          "pv_1": 1.116,
-          "pv_2": 1.664,
-          "thermal_1": 14.22
+        "battery_1_chg": {
+          "pv_1": 0.066156
         },
-        "p6_2": {
-          "thermal_1": 11.0
+        "battery_2_chg": {
+          "pv_1": 0.035458
         }
       },
-      "sell": 99.78,
+      "sell": 127.418386,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.958101,
+        "battery_2": 59.977543
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 16,
+        "rolling_window_start": 17,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.02,
-            "uncertainty_factor": 0.93,
-            "actual_ratio": 0.0186,
-            "actual_available_mwh": 1.116
+            "uncertainty_factor": 0.9,
+            "actual_ratio": 0.018,
+            "actual_available_mwh": 1.08
           },
           "pv_2": {
             "forecast_ratio": 0.02,
-            "uncertainty_factor": 1.04,
-            "actual_ratio": 0.0208,
-            "actual_available_mwh": 1.664
+            "uncertainty_factor": 0.9,
+            "actual_ratio": 0.018,
+            "actual_available_mwh": 1.44
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 0.066156,
+          "battery_2": 0.035458
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049973,
+          "battery_2": 0.029987
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -949,55 +1233,59 @@
         "battery_2": 0.0
       },
       "k": {
-        "p1_2": {
-          "thermal_1": 17.0
+        "p5_4": {
+          "thermal_1": 10.0
         },
-        "p3_1": {
-          "thermal_1": 9.0
+        "battery_1_chg": {
+          "thermal_1": 0.058028
         },
-        "p4_3": {
-          "thermal_1": 14.0
-        },
-        "p6_2": {
-          "thermal_1": 11.0
-        },
-        "s2": {
-          "thermal_1": 18.0
+        "battery_2_chg": {
+          "thermal_1": 0.033124
         }
       },
-      "sell": 56.0,
+      "sell": 114.908848,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.963249,
+        "battery_2": 59.979022
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 19,
+        "rolling_window_start": 17,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.1,
+            "uncertainty_factor": 0.903407,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.0,
+            "uncertainty_factor": 0.903407,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 0.058028,
+          "battery_2": 0.033124
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049979,
+          "battery_2": 0.029989
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 115.0,
+        "sell_commitment_shortfall_mwh": 0.091152,
+        "sell_commitment_penalty": 0.136728
       }
     },
     {
@@ -1010,36 +1298,26 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p3_1": {
-          "thermal_1": 9.0
-        },
-        "p4_3": {
-          "thermal_1": 14.0
-        },
-        "s2": {
-          "thermal_1": 18.0
-        }
-      },
-      "sell": 84.0,
+      "k": {},
+      "sell": 125.0,
       "soc": {
-        "battery_1": 100.0,
-        "battery_2": 60.0
+        "battery_1": 99.913267,
+        "battery_2": 59.949032
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 19,
+        "rolling_window_start": 17,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.06,
+            "uncertainty_factor": 0.913397,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.96,
+            "uncertainty_factor": 0.913397,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1052,8 +1330,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049982,
+          "battery_2": 0.02999
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1063,37 +1351,29 @@
         "thermal_2": 45.0,
         "pv_1": 0.0,
         "pv_2": 0.0,
-        "battery_1": 20.0,
-        "battery_2": 7.0
+        "battery_1": 0.0,
+        "battery_2": 0.0
       },
-      "k": {
-        "p3_1": {
-          "battery_1": 9.0
-        },
-        "s2": {
-          "battery_1": 11.0,
-          "battery_2": 7.0
-        }
-      },
+      "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 99.863311,
+        "battery_2": 59.919058
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 19,
+        "rolling_window_start": 21,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.02,
+            "uncertainty_factor": 0.929289,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.92,
+            "uncertainty_factor": 0.929289,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1103,11 +1383,21 @@
           "battery_2": 0.0
         },
         "battery_discharge_mwh": {
-          "battery_1": 20.0,
-          "battery_2": 7.0
+          "battery_1": 0.0,
+          "battery_2": 0.0
+        },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049957,
+          "battery_2": 0.029975
         },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1123,23 +1413,23 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 99.813379,
+        "battery_2": 59.889098
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 22,
+        "rolling_window_start": 21,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.98,
+            "uncertainty_factor": 0.95,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.09,
+            "uncertainty_factor": 0.95,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1152,8 +1442,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049932,
+          "battery_2": 0.02996
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1169,23 +1469,23 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 99.763472,
+        "battery_2": 59.859154
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 22,
+        "rolling_window_start": 21,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.94,
+            "uncertainty_factor": 0.974118,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.05,
+            "uncertainty_factor": 0.974118,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1198,8 +1498,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049907,
+          "battery_2": 0.029945
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1215,23 +1525,23 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 99.713591,
+        "battery_2": 59.829224
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 22,
+        "rolling_window_start": 21,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.9,
+            "uncertainty_factor": 1.0,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.01,
+            "uncertainty_factor": 1.0,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1244,8 +1554,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049882,
+          "battery_2": 0.02993
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1255,14 +1575,19 @@
         "thermal_2": 45.0,
         "pv_1": 0.0,
         "pv_2": 0.0,
-        "battery_1": 0.0,
-        "battery_2": 0.0
+        "battery_1": 8.223369,
+        "battery_2": 7.776631
       },
-      "k": {},
+      "k": {
+        "p1_2": {
+          "battery_1": 8.223369,
+          "battery_2": 7.776631
+        }
+      },
       "sell": 125.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.526657,
+        "battery_2": 51.158609
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -1271,13 +1596,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.07,
+            "uncertainty_factor": 1.025882,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.97,
+            "uncertainty_factor": 1.025882,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1287,11 +1612,21 @@
           "battery_2": 0.0
         },
         "battery_discharge_mwh": {
-          "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_1": 8.223369,
+          "battery_2": 7.776631
+        },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.049857,
+          "battery_2": 0.029915
         },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 109.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1305,17 +1640,23 @@
         "battery_2": 0.0
       },
       "k": {
-        "a3": {
-          "thermal_1": 15.0
+        "p1_2": {
+          "thermal_1": 16.0
         },
-        "a4": {
-          "thermal_1": 9.0
+        "p3_2": {
+          "thermal_1": 18.0
+        },
+        "p5_5": {
+          "thermal_1": 10.0
+        },
+        "p6_4": {
+          "thermal_1": 8.0
         }
       },
-      "sell": 101.0,
+      "sell": 73.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.481393,
+        "battery_2": 51.133029
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -1324,13 +1665,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.03,
+            "uncertainty_factor": 1.05,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.93,
+            "uncertainty_factor": 1.05,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1343,8 +1684,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045263,
+          "battery_2": 0.025579
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 73.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1358,14 +1709,14 @@
         "battery_2": 0.0
       },
       "k": {
-        "a3": {
-          "thermal_1": 15.0
+        "p1_2": {
+          "thermal_1": 16.0
         }
       },
-      "sell": 110.0,
+      "sell": 109.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.436153,
+        "battery_2": 51.107463
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -1374,13 +1725,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.99,
+            "uncertainty_factor": 1.070711,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.1,
+            "uncertainty_factor": 1.070711,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1393,8 +1744,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045241,
+          "battery_2": 0.025567
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 109.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1408,35 +1769,32 @@
         "battery_2": 0.0
       },
       "k": {
-        "a3": {
-          "thermal_1": 15.0
+        "p1_2": {
+          "thermal_1": 16.0
         },
-        "a4": {
-          "thermal_1": 9.0
-        },
-        "p4_4": {
-          "thermal_1": 14.0
+        "p3_2": {
+          "thermal_1": 18.0
         }
       },
-      "sell": 87.0,
+      "sell": 91.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.390935,
+        "battery_2": 51.081909
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 28,
+        "rolling_window_start": 25,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.95,
+            "uncertainty_factor": 1.086603,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.06,
+            "uncertainty_factor": 1.086603,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1449,8 +1807,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045218,
+          "battery_2": 0.025554
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 91.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1464,38 +1832,29 @@
         "battery_2": 0.0
       },
       "k": {
-        "a3": {
-          "thermal_1": 15.0
-        },
-        "p4_4": {
+        "p2_2": {
           "thermal_1": 14.0
-        },
-        "p6_3": {
-          "thermal_1": 11.0
-        },
-        "s3": {
-          "thermal_1": 20.0
         }
       },
-      "sell": 65.0,
+      "sell": 111.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.345739,
+        "battery_2": 51.056368
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 28,
+        "rolling_window_start": 29,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.91,
+            "uncertainty_factor": 1.096593,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.02,
+            "uncertainty_factor": 1.096593,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1508,8 +1867,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045195,
+          "battery_2": 0.025541
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1523,29 +1892,29 @@
         "battery_2": 0.0
       },
       "k": {
-        "p6_3": {
-          "thermal_1": 11.0
+        "p2_2": {
+          "thermal_1": 14.0
         }
       },
-      "sell": 114.0,
+      "sell": 111.0,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.300566,
+        "battery_2": 51.03084
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 28,
+        "rolling_window_start": 29,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.08,
+            "uncertainty_factor": 1.1,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.98,
+            "uncertainty_factor": 1.1,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -1558,8 +1927,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045173,
+          "battery_2": 0.025528
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1567,39 +1946,39 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 1.248,
-        "pv_2": 1.504,
+        "pv_1": 1.315911,
+        "pv_2": 1.754548,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p6_3": {
-          "pv_1": 1.248,
-          "pv_2": 1.504,
-          "thermal_1": 8.248
+        "p2_2": {
+          "pv_1": 1.315911,
+          "pv_2": 1.754548,
+          "thermal_1": 10.929541
         }
       },
-      "sell": 116.752,
+      "sell": 114.070459,
       "soc": {
-        "battery_1": 77.777778,
-        "battery_2": 52.222222
+        "battery_1": 90.255416,
+        "battery_2": 51.005325
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 31,
+        "rolling_window_start": 29,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.02,
-            "uncertainty_factor": 1.04,
-            "actual_ratio": 0.0208,
-            "actual_available_mwh": 1.248
+            "uncertainty_factor": 1.096593,
+            "actual_ratio": 0.021932,
+            "actual_available_mwh": 1.315911
           },
           "pv_2": {
             "forecast_ratio": 0.02,
-            "uncertainty_factor": 0.94,
-            "actual_ratio": 0.0188,
-            "actual_available_mwh": 1.504
+            "uncertainty_factor": 1.096593,
+            "actual_ratio": 0.021932,
+            "actual_available_mwh": 1.754548
           }
         },
         "battery_charge_mwh": {
@@ -1610,8 +1989,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.04515,
+          "battery_2": 0.025515
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1619,54 +2008,61 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 4.8,
-        "pv_2": 5.76,
+        "pv_1": 5.215692,
+        "pv_2": 6.954256,
         "battery_1": 0.0,
-        "battery_2": 0.0
+        "battery_2": 1.830052
       },
       "k": {
-        "battery_1_chg": {
-          "pv_1": 4.8,
-          "pv_2": 5.76,
-          "thermal_1": 7.545263
-        },
-        "battery_2_chg": {
-          "thermal_1": 8.187135
+        "p2_2": {
+          "pv_1": 5.215692,
+          "pv_2": 6.954256,
+          "battery_2": 1.830052
         }
       },
-      "sell": 109.267602,
+      "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 90.210288,
+        "battery_2": 48.946431
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 31,
+        "rolling_window_start": 29,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.08,
-            "uncertainty_factor": 1.0,
-            "actual_ratio": 0.08,
-            "actual_available_mwh": 4.8
+            "uncertainty_factor": 1.086603,
+            "actual_ratio": 0.086928,
+            "actual_available_mwh": 5.215692
           },
           "pv_2": {
             "forecast_ratio": 0.08,
-            "uncertainty_factor": 0.9,
-            "actual_ratio": 0.072,
-            "actual_available_mwh": 5.76
+            "uncertainty_factor": 1.086603,
+            "actual_ratio": 0.086928,
+            "actual_available_mwh": 6.954256
           }
         },
         "battery_charge_mwh": {
-          "battery_1": 18.105263,
-          "battery_2": 8.187135
-        },
-        "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_discharge_mwh": {
+          "battery_1": 0.0,
+          "battery_2": 1.830052
+        },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045128,
+          "battery_2": 0.025503
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1674,45 +2070,59 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 9.216,
-        "pv_2": 13.696,
+        "pv_1": 10.278823,
+        "pv_2": 13.705097,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 147.912,
+      "k": {
+        "battery_2_chg": {
+          "pv_1": 6.996658
+        }
+      },
+      "sell": 141.987262,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 90.165183,
+        "battery_2": 55.568783
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 31,
+        "rolling_window_start": 33,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 0.96,
-            "actual_ratio": 0.1536,
-            "actual_available_mwh": 9.216
+            "uncertainty_factor": 1.070711,
+            "actual_ratio": 0.171314,
+            "actual_available_mwh": 10.278823
           },
           "pv_2": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 1.07,
-            "actual_ratio": 0.1712,
-            "actual_available_mwh": 13.696
+            "uncertainty_factor": 1.070711,
+            "actual_ratio": 0.171314,
+            "actual_available_mwh": 13.705097
           }
         },
         "battery_charge_mwh": {
           "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_2": 6.996658
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045105,
+          "battery_2": 0.024473
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1720,45 +2130,59 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 5.52,
-        "pv_2": 8.24,
+        "pv_1": 6.3,
+        "pv_2": 8.4,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 138.76,
+      "k": {
+        "battery_2_chg": {
+          "pv_1": 0.704939
+        }
+      },
+      "sell": 138.995061,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 90.120101,
+        "battery_2": 56.210691
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 34,
+        "rolling_window_start": 33,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.1,
-            "uncertainty_factor": 0.92,
-            "actual_ratio": 0.092,
-            "actual_available_mwh": 5.52
+            "uncertainty_factor": 1.05,
+            "actual_ratio": 0.105,
+            "actual_available_mwh": 6.3
           },
           "pv_2": {
             "forecast_ratio": 0.1,
-            "uncertainty_factor": 1.03,
-            "actual_ratio": 0.103,
-            "actual_available_mwh": 8.24
+            "uncertainty_factor": 1.05,
+            "actual_ratio": 0.105,
+            "actual_available_mwh": 8.4
           }
         },
         "battery_charge_mwh": {
           "battery_1": 0.0,
-          "battery_2": 0.0
+          "battery_2": 0.704939
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045083,
+          "battery_2": 0.027784
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1766,37 +2190,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 18.312,
-        "pv_2": 22.176,
+        "pv_1": 17.234816,
+        "pv_2": 22.979755,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p2_2": {
-          "pv_1": 18.0
-        }
-      },
-      "sell": 147.488,
+      "k": {},
+      "sell": 165.214571,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 90.075041,
+        "battery_2": 56.182586
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 34,
+        "rolling_window_start": 33,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.28,
-            "uncertainty_factor": 1.09,
-            "actual_ratio": 0.3052,
-            "actual_available_mwh": 18.312
+            "uncertainty_factor": 1.025882,
+            "actual_ratio": 0.287247,
+            "actual_available_mwh": 17.234816
           },
           "pv_2": {
             "forecast_ratio": 0.28,
-            "uncertainty_factor": 0.99,
-            "actual_ratio": 0.2772,
-            "actual_available_mwh": 22.176
+            "uncertainty_factor": 1.025882,
+            "actual_ratio": 0.287247,
+            "actual_available_mwh": 22.979755
           }
         },
         "battery_charge_mwh": {
@@ -1807,8 +2227,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.04506,
+          "battery_2": 0.028105
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1816,45 +2246,45 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 7.56,
-        "pv_2": 9.12,
+        "pv_1": 7.2,
+        "pv_2": 9.6,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p1_3": {
-          "pv_1": 7.56,
-          "pv_2": 9.12,
-          "thermal_1": 0.32
+        "p4_2": {
+          "pv_1": 7.2,
+          "pv_2": 4.8
         },
-        "p2_2": {
-          "thermal_1": 18.0
+        "p5_6": {
+          "pv_2": 4.8,
+          "thermal_1": 5.2
         },
-        "p5_3": {
-          "thermal_1": 15.0
+        "p6_5": {
+          "thermal_1": 8.0
         }
       },
-      "sell": 91.68,
+      "sell": 111.8,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 90.030003,
+        "battery_2": 56.154494
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 34,
+        "rolling_window_start": 33,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.12,
-            "uncertainty_factor": 1.05,
-            "actual_ratio": 0.126,
-            "actual_available_mwh": 7.56
+            "uncertainty_factor": 1.0,
+            "actual_ratio": 0.12,
+            "actual_available_mwh": 7.2
           },
           "pv_2": {
             "forecast_ratio": 0.12,
-            "uncertainty_factor": 0.95,
-            "actual_ratio": 0.114,
-            "actual_available_mwh": 9.12
+            "uncertainty_factor": 1.0,
+            "actual_ratio": 0.12,
+            "actual_available_mwh": 9.6
           }
         },
         "battery_charge_mwh": {
@@ -1865,8 +2295,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045038,
+          "battery_2": 0.028091
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 95.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1874,28 +2314,25 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 9.696,
-        "pv_2": 11.648,
+        "pv_1": 9.351534,
+        "pv_2": 12.468712,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "a5": {
-          "pv_1": 9.696,
-          "pv_2": 2.304
+        "p4_2": {
+          "pv_1": 9.351534,
+          "pv_2": 2.648466
         },
-        "p1_3": {
-          "pv_2": 9.344,
-          "thermal_1": 7.656
-        },
-        "p4_5": {
-          "thermal_1": 14.0
+        "p5_7": {
+          "pv_2": 9.820246,
+          "thermal_1": 0.179754
         }
       },
-      "sell": 103.344,
+      "sell": 124.820246,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.984988,
+        "battery_2": 56.126417
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -1904,15 +2341,15 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 1.01,
-            "actual_ratio": 0.1616,
-            "actual_available_mwh": 9.696
+            "uncertainty_factor": 0.974118,
+            "actual_ratio": 0.155859,
+            "actual_available_mwh": 9.351534
           },
           "pv_2": {
             "forecast_ratio": 0.16,
-            "uncertainty_factor": 0.91,
-            "actual_ratio": 0.1456,
-            "actual_available_mwh": 11.648
+            "uncertainty_factor": 0.974118,
+            "actual_ratio": 0.155859,
+            "actual_available_mwh": 12.468712
           }
         },
         "battery_charge_mwh": {
@@ -1923,8 +2360,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.045015,
+          "battery_2": 0.028077
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 103.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1932,25 +2379,21 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 4.656,
-        "pv_2": 6.912,
+        "pv_1": 4.56,
+        "pv_2": 6.08,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "a5": {
-          "pv_1": 4.656,
-          "pv_2": 6.912,
-          "thermal_1": 0.432
-        },
-        "p4_5": {
-          "thermal_1": 14.0
+        "p6_6": {
+          "pv_1": 4.56,
+          "pv_2": 3.44
         }
       },
-      "sell": 110.568,
+      "sell": 127.64,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.939996,
+        "battery_2": 56.098354
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -1959,15 +2402,15 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.08,
-            "uncertainty_factor": 0.97,
-            "actual_ratio": 0.0776,
-            "actual_available_mwh": 4.656
+            "uncertainty_factor": 0.95,
+            "actual_ratio": 0.076,
+            "actual_available_mwh": 4.56
           },
           "pv_2": {
             "forecast_ratio": 0.08,
-            "uncertainty_factor": 1.08,
-            "actual_ratio": 0.0864,
-            "actual_available_mwh": 6.912
+            "uncertainty_factor": 0.95,
+            "actual_ratio": 0.076,
+            "actual_available_mwh": 6.08
           }
         },
         "battery_charge_mwh": {
@@ -1978,8 +2421,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044992,
+          "battery_2": 0.028063
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 117.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -1987,21 +2440,16 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 7.254,
-        "pv_2": 10.816,
+        "pv_1": 7.248457,
+        "pv_2": 9.664609,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "a5": {
-          "pv_1": 7.254,
-          "pv_2": 4.746
-        }
-      },
-      "sell": 131.07,
+      "k": {},
+      "sell": 141.913066,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.895026,
+        "battery_2": 56.070305
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -2010,15 +2458,15 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.13,
-            "uncertainty_factor": 0.93,
-            "actual_ratio": 0.1209,
-            "actual_available_mwh": 7.254
+            "uncertainty_factor": 0.929289,
+            "actual_ratio": 0.120808,
+            "actual_available_mwh": 7.248457
           },
           "pv_2": {
             "forecast_ratio": 0.13,
-            "uncertainty_factor": 1.04,
-            "actual_ratio": 0.1352,
-            "actual_available_mwh": 10.816
+            "uncertainty_factor": 0.929289,
+            "actual_ratio": 0.120808,
+            "actual_available_mwh": 9.664609
           }
         },
         "battery_charge_mwh": {
@@ -2029,8 +2477,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.04497,
+          "battery_2": 0.028049
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2038,33 +2496,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 5.28,
-        "pv_2": 6.4,
+        "pv_1": 4.384308,
+        "pv_2": 5.845744,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {},
-      "sell": 136.68,
+      "sell": 135.230052,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.850078,
+        "battery_2": 56.04227
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 40,
+        "rolling_window_start": 37,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.08,
-            "uncertainty_factor": 1.1,
-            "actual_ratio": 0.088,
-            "actual_available_mwh": 5.28
+            "uncertainty_factor": 0.913397,
+            "actual_ratio": 0.073072,
+            "actual_available_mwh": 4.384308
           },
           "pv_2": {
             "forecast_ratio": 0.08,
-            "uncertainty_factor": 1.0,
-            "actual_ratio": 0.08,
-            "actual_available_mwh": 6.4
+            "uncertainty_factor": 0.913397,
+            "actual_ratio": 0.073072,
+            "actual_available_mwh": 5.845744
           }
         },
         "battery_charge_mwh": {
@@ -2075,8 +2533,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044948,
+          "battery_2": 0.028035
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2084,39 +2552,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 3.816,
-        "pv_2": 4.608,
+        "pv_1": 3.252267,
+        "pv_2": 4.336356,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p6_4": {
-          "pv_1": 3.816,
-          "pv_2": 4.608,
-          "thermal_1": 2.576
-        }
-      },
-      "sell": 122.424,
+      "k": {},
+      "sell": 132.588623,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.805153,
+        "battery_2": 56.014249
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 40,
+        "rolling_window_start": 41,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.06,
-            "uncertainty_factor": 1.06,
-            "actual_ratio": 0.0636,
-            "actual_available_mwh": 3.816
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.054204,
+            "actual_available_mwh": 3.252267
           },
           "pv_2": {
             "forecast_ratio": 0.06,
-            "uncertainty_factor": 0.96,
-            "actual_ratio": 0.0576,
-            "actual_available_mwh": 4.608
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.054204,
+            "actual_available_mwh": 4.336356
           }
         },
         "battery_charge_mwh": {
@@ -2127,8 +2589,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044925,
+          "battery_2": 0.028021
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2136,39 +2608,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 3.672,
-        "pv_2": 4.416,
+        "pv_1": 3.24,
+        "pv_2": 4.32,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p6_4": {
-          "pv_1": 3.672,
-          "pv_2": 4.416,
-          "thermal_1": 2.912
-        }
-      },
-      "sell": 122.088,
+      "k": {},
+      "sell": 132.56,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.76025,
+        "battery_2": 55.986241
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 40,
+        "rolling_window_start": 41,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.06,
-            "uncertainty_factor": 1.02,
-            "actual_ratio": 0.0612,
-            "actual_available_mwh": 3.672
+            "uncertainty_factor": 0.9,
+            "actual_ratio": 0.054,
+            "actual_available_mwh": 3.24
           },
           "pv_2": {
             "forecast_ratio": 0.06,
-            "uncertainty_factor": 0.92,
-            "actual_ratio": 0.0552,
-            "actual_available_mwh": 4.416
+            "uncertainty_factor": 0.9,
+            "actual_ratio": 0.054,
+            "actual_available_mwh": 4.32
           }
         },
         "battery_charge_mwh": {
@@ -2179,8 +2645,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044903,
+          "battery_2": 0.028007
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2188,48 +2664,39 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 0.588,
-        "pv_2": 0.872,
+        "pv_1": 0.542044,
+        "pv_2": 0.722726,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p3_2": {
-          "pv_1": 0.588,
-          "pv_2": 0.872,
-          "thermal_1": 7.54
-        },
-        "p4_6": {
-          "thermal_1": 14.0
-        },
-        "p5_4": {
-          "thermal_1": 15.0
-        },
-        "p6_4": {
-          "thermal_1": 11.0
+        "p5_8": {
+          "pv_1": 0.542044,
+          "pv_2": 0.722726,
+          "thermal_1": 8.73523
         }
       },
-      "sell": 77.46,
+      "sell": 116.26477,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.71537,
+        "battery_2": 55.958248
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 43,
+        "rolling_window_start": 41,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.01,
-            "uncertainty_factor": 0.98,
-            "actual_ratio": 0.0098,
-            "actual_available_mwh": 0.588
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.009034,
+            "actual_available_mwh": 0.542044
           },
           "pv_2": {
             "forecast_ratio": 0.01,
-            "uncertainty_factor": 1.09,
-            "actual_ratio": 0.0109,
-            "actual_available_mwh": 0.872
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.009034,
+            "actual_available_mwh": 0.722726
           }
         },
         "battery_charge_mwh": {
@@ -2240,8 +2707,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.04488,
+          "battery_2": 0.027993
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 115.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2254,33 +2731,26 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p3_2": {
-          "thermal_1": 9.0
-        },
-        "p4_6": {
-          "thermal_1": 14.0
-        }
-      },
-      "sell": 102.0,
+      "k": {},
+      "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.670513,
+        "battery_2": 55.930269
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 43,
+        "rolling_window_start": 41,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.94,
+            "uncertainty_factor": 0.913397,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.05,
+            "uncertainty_factor": 0.913397,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2293,8 +2763,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044858,
+          "battery_2": 0.027979
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2308,29 +2788,29 @@
         "battery_2": 0.0
       },
       "k": {
-        "p3_2": {
-          "thermal_1": 9.0
+        "p6_7": {
+          "thermal_1": 8.0
         }
       },
-      "sell": 116.0,
+      "sell": 117.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.625677,
+        "battery_2": 55.902304
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 43,
+        "rolling_window_start": 45,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.9,
+            "uncertainty_factor": 0.929289,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.01,
+            "uncertainty_factor": 0.929289,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2343,8 +2823,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044835,
+          "battery_2": 0.027965
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 117.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2360,23 +2850,23 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.580865,
+        "battery_2": 55.874353
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 46,
+        "rolling_window_start": 45,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.07,
+            "uncertainty_factor": 0.95,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.97,
+            "uncertainty_factor": 0.95,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2389,8 +2879,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044813,
+          "battery_2": 0.027951
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2403,33 +2903,26 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p2_3": {
-          "thermal_1": 18.0
-        },
-        "s4": {
-          "thermal_1": 10.0
-        }
-      },
-      "sell": 97.0,
+      "k": {},
+      "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.536074,
+        "battery_2": 55.846416
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 46,
+        "rolling_window_start": 45,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.03,
+            "uncertainty_factor": 0.974118,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.93,
+            "uncertainty_factor": 0.974118,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2442,8 +2935,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.04479,
+          "battery_2": 0.027937
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2456,33 +2959,26 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p2_3": {
-          "thermal_1": 18.0
-        },
-        "s4": {
-          "thermal_1": 10.0
-        }
-      },
-      "sell": 97.0,
+      "k": {},
+      "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.491306,
+        "battery_2": 55.818492
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 46,
+        "rolling_window_start": 45,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.99,
+            "uncertainty_factor": 1.0,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.1,
+            "uncertainty_factor": 1.0,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2495,8 +2991,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044768,
+          "battery_2": 0.027923
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2509,11 +3015,15 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 125.0,
+      "k": {
+        "p1_3": {
+          "thermal_1": 16.0
+        }
+      },
+      "sell": 109.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.44656,
+        "battery_2": 55.790583
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -2522,13 +3032,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.95,
+            "uncertainty_factor": 1.025882,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.06,
+            "uncertainty_factor": 1.025882,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2541,8 +3051,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044746,
+          "battery_2": 0.027909
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 109.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2555,11 +3075,15 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 125.0,
+      "k": {
+        "p1_3": {
+          "thermal_1": 16.0
+        }
+      },
+      "sell": 109.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.401837,
+        "battery_2": 55.762688
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -2568,13 +3092,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.91,
+            "uncertainty_factor": 1.05,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.02,
+            "uncertainty_factor": 1.05,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2587,8 +3111,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044723,
+          "battery_2": 0.027895
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 109.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2602,14 +3136,20 @@
         "battery_2": 0.0
       },
       "k": {
-        "p1_4": {
-          "thermal_1": 17.0
+        "p1_3": {
+          "thermal_1": 16.0
+        },
+        "p3_3": {
+          "thermal_1": 18.0
+        },
+        "p5_9": {
+          "thermal_1": 10.0
         }
       },
-      "sell": 108.0,
+      "sell": 81.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.357136,
+        "battery_2": 55.734807
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -2618,13 +3158,13 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.08,
+            "uncertainty_factor": 1.070711,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.98,
+            "uncertainty_factor": 1.070711,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2637,8 +3177,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044701,
+          "battery_2": 0.027881
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 81.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2652,35 +3202,35 @@
         "battery_2": 0.0
       },
       "k": {
-        "a6": {
-          "thermal_1": 5.0
+        "p1_3": {
+          "thermal_1": 16.0
         },
-        "p1_4": {
-          "thermal_1": 17.0
+        "p3_3": {
+          "thermal_1": 18.0
         },
-        "p4_7": {
-          "thermal_1": 14.0
+        "p6_8": {
+          "thermal_1": 8.0
         }
       },
-      "sell": 89.0,
+      "sell": 83.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.312458,
+        "battery_2": 55.706939
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 52,
+        "rolling_window_start": 49,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.04,
+            "uncertainty_factor": 1.086603,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.94,
+            "uncertainty_factor": 1.086603,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2693,8 +3243,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044679,
+          "battery_2": 0.027867
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 83.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2708,32 +3268,29 @@
         "battery_2": 0.0
       },
       "k": {
-        "p4_7": {
+        "p2_3": {
           "thermal_1": 14.0
-        },
-        "p6_5": {
-          "thermal_1": 11.0
         }
       },
-      "sell": 100.0,
+      "sell": 111.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 60.0
+        "battery_1": 89.267801,
+        "battery_2": 55.679086
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 52,
+        "rolling_window_start": 53,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.0,
+            "uncertainty_factor": 1.096593,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.9,
+            "uncertainty_factor": 1.096593,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -2746,8 +3303,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044656,
+          "battery_2": 0.027853
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2755,40 +3322,39 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 0.576,
-        "pv_2": 0.856,
+        "pv_1": 0.66,
+        "pv_2": 0.88,
         "battery_1": 0.0,
-        "battery_2": 7.97076
+        "battery_2": 0.0
       },
       "k": {
-        "p6_5": {
-          "pv_1": 0.576,
-          "pv_2": 0.856,
-          "battery_2": 7.97076,
-          "thermal_1": 1.59724
+        "p2_3": {
+          "pv_1": 0.66,
+          "pv_2": 0.88,
+          "thermal_1": 12.46
         }
       },
-      "sell": 123.40276,
+      "sell": 112.54,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 89.223167,
+        "battery_2": 55.651246
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 52,
+        "rolling_window_start": 53,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.01,
-            "uncertainty_factor": 0.96,
-            "actual_ratio": 0.0096,
-            "actual_available_mwh": 0.576
+            "uncertainty_factor": 1.1,
+            "actual_ratio": 0.011,
+            "actual_available_mwh": 0.66
           },
           "pv_2": {
             "forecast_ratio": 0.01,
-            "uncertainty_factor": 1.07,
-            "actual_ratio": 0.0107,
-            "actual_available_mwh": 0.856
+            "uncertainty_factor": 1.1,
+            "actual_ratio": 0.011,
+            "actual_available_mwh": 0.88
           }
         },
         "battery_charge_mwh": {
@@ -2797,10 +3363,20 @@
         },
         "battery_discharge_mwh": {
           "battery_1": 0.0,
-          "battery_2": 7.97076
+          "battery_2": 0.0
+        },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044634,
+          "battery_2": 0.02784
         },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2808,38 +3384,38 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 7.728,
-        "pv_2": 11.536,
+        "pv_1": 9.211378,
+        "pv_2": 12.281837,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p6_5": {
-          "pv_1": 7.728,
-          "pv_2": 3.272
+        "p2_3": {
+          "pv_1": 9.211378,
+          "pv_2": 4.788622
         }
       },
-      "sell": 133.264,
+      "sell": 132.493215,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 89.178556,
+        "battery_2": 55.623421
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 55,
+        "rolling_window_start": 53,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.14,
-            "uncertainty_factor": 0.92,
-            "actual_ratio": 0.1288,
-            "actual_available_mwh": 7.728
+            "uncertainty_factor": 1.096593,
+            "actual_ratio": 0.153523,
+            "actual_available_mwh": 9.211378
           },
           "pv_2": {
             "forecast_ratio": 0.14,
-            "uncertainty_factor": 1.03,
-            "actual_ratio": 0.1442,
-            "actual_available_mwh": 11.536
+            "uncertainty_factor": 1.096593,
+            "actual_ratio": 0.153523,
+            "actual_available_mwh": 12.281837
           }
         },
         "battery_charge_mwh": {
@@ -2850,8 +3426,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044612,
+          "battery_2": 0.027826
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2859,33 +3445,37 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 22.89,
-        "pv_2": 27.72,
+        "pv_1": 22.818653,
+        "pv_2": 30.424871,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 175.61,
+      "k": {
+        "p2_3": {
+          "pv_1": 14.0
+        }
+      },
+      "sell": 164.243524,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 89.133967,
+        "battery_2": 55.595609
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 55,
+        "rolling_window_start": 53,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.35,
-            "uncertainty_factor": 1.09,
-            "actual_ratio": 0.3815,
-            "actual_available_mwh": 22.89
+            "uncertainty_factor": 1.086603,
+            "actual_ratio": 0.380311,
+            "actual_available_mwh": 22.818653
           },
           "pv_2": {
             "forecast_ratio": 0.35,
-            "uncertainty_factor": 0.99,
-            "actual_ratio": 0.3465,
-            "actual_available_mwh": 27.72
+            "uncertainty_factor": 1.086603,
+            "actual_ratio": 0.380311,
+            "actual_available_mwh": 30.424871
           }
         },
         "battery_charge_mwh": {
@@ -2896,8 +3486,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044589,
+          "battery_2": 0.027812
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 111.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2905,33 +3505,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 35.91,
-        "pv_2": 43.32,
+        "pv_1": 36.618305,
+        "pv_2": 48.824407,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {},
-      "sell": 204.23,
+      "sell": 210.442712,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 89.0894,
+        "battery_2": 55.567811
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 55,
+        "rolling_window_start": 57,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.57,
-            "uncertainty_factor": 1.05,
-            "actual_ratio": 0.5985,
-            "actual_available_mwh": 35.91
+            "uncertainty_factor": 1.070711,
+            "actual_ratio": 0.610305,
+            "actual_available_mwh": 36.618305
           },
           "pv_2": {
             "forecast_ratio": 0.57,
-            "uncertainty_factor": 0.95,
-            "actual_ratio": 0.5415,
-            "actual_available_mwh": 43.32
+            "uncertainty_factor": 1.070711,
+            "actual_ratio": 0.610305,
+            "actual_available_mwh": 48.824407
           }
         },
         "battery_charge_mwh": {
@@ -2942,8 +3542,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044567,
+          "battery_2": 0.027798
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2951,33 +3561,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 48.48,
-        "pv_2": 58.24,
+        "pv_1": 50.4,
+        "pv_2": 67.2,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {},
-      "sell": 231.72,
+      "sell": 242.6,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 89.044855,
+        "battery_2": 55.540027
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 58,
+        "rolling_window_start": 57,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.8,
-            "uncertainty_factor": 1.01,
-            "actual_ratio": 0.808,
-            "actual_available_mwh": 48.48
+            "uncertainty_factor": 1.05,
+            "actual_ratio": 0.84,
+            "actual_available_mwh": 50.4
           },
           "pv_2": {
             "forecast_ratio": 0.8,
-            "uncertainty_factor": 0.91,
-            "actual_ratio": 0.728,
-            "actual_available_mwh": 58.24
+            "uncertainty_factor": 1.05,
+            "actual_ratio": 0.84,
+            "actual_available_mwh": 67.2
           }
         },
         "battery_charge_mwh": {
@@ -2988,8 +3598,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044545,
+          "battery_2": 0.027784
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -2997,33 +3617,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 55.872,
-        "pv_2": 80.0,
+        "pv_1": 59.090798,
+        "pv_2": 78.78773,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {},
-      "sell": 260.872,
+      "sell": 262.878528,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 89.000333,
+        "battery_2": 55.512257
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 58,
+        "rolling_window_start": 57,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.96,
-            "uncertainty_factor": 0.97,
-            "actual_ratio": 0.9312,
-            "actual_available_mwh": 55.872
+            "uncertainty_factor": 1.025882,
+            "actual_ratio": 0.984847,
+            "actual_available_mwh": 59.090798
           },
           "pv_2": {
             "forecast_ratio": 0.96,
-            "uncertainty_factor": 1.08,
-            "actual_ratio": 1.0,
-            "actual_available_mwh": 80.0
+            "uncertainty_factor": 1.025882,
+            "actual_ratio": 0.984847,
+            "actual_available_mwh": 78.78773
           }
         },
         "battery_charge_mwh": {
@@ -3034,8 +3654,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044522,
+          "battery_2": 0.02777
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3043,33 +3673,40 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 54.684,
-        "pv_2": 80.0,
+        "pv_1": 58.8,
+        "pv_2": 78.4,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 259.684,
+      "k": {
+        "p4_3": {
+          "pv_1": 12.0
+        },
+        "p5_10": {
+          "pv_1": 10.0
+        }
+      },
+      "sell": 240.2,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.955832,
+        "battery_2": 55.484501
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 58,
+        "rolling_window_start": 57,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.98,
-            "uncertainty_factor": 0.93,
-            "actual_ratio": 0.9114,
-            "actual_available_mwh": 54.684
+            "uncertainty_factor": 1.0,
+            "actual_ratio": 0.98,
+            "actual_available_mwh": 58.8
           },
           "pv_2": {
             "forecast_ratio": 0.98,
-            "uncertainty_factor": 1.04,
-            "actual_ratio": 1.0,
-            "actual_available_mwh": 80.0
+            "uncertainty_factor": 1.0,
+            "actual_ratio": 0.98,
+            "actual_available_mwh": 78.4
           }
         },
         "battery_charge_mwh": {
@@ -3080,8 +3717,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.0445,
+          "battery_2": 0.027756
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 103.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3089,16 +3736,20 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 60.0,
-        "pv_2": 80.0,
+        "pv_1": 58.447086,
+        "pv_2": 77.929448,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {},
-      "sell": 265.0,
+      "k": {
+        "p4_3": {
+          "pv_1": 12.0
+        }
+      },
+      "sell": 249.376534,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.911354,
+        "battery_2": 55.456759
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -3107,15 +3758,15 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 1.0,
-            "uncertainty_factor": 1.1,
-            "actual_ratio": 1.0,
-            "actual_available_mwh": 60.0
+            "uncertainty_factor": 0.974118,
+            "actual_ratio": 0.974118,
+            "actual_available_mwh": 58.447086
           },
           "pv_2": {
             "forecast_ratio": 1.0,
-            "uncertainty_factor": 1.0,
-            "actual_ratio": 1.0,
-            "actual_available_mwh": 80.0
+            "uncertainty_factor": 0.974118,
+            "actual_ratio": 0.974118,
+            "actual_available_mwh": 77.929448
           }
         },
         "battery_charge_mwh": {
@@ -3126,8 +3777,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044478,
+          "battery_2": 0.027742
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 113.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3135,23 +3796,16 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 60.0,
-        "pv_2": 72.96,
+        "pv_1": 54.15,
+        "pv_2": 72.2,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "a7": {
-          "pv_1": 11.0
-        },
-        "p4_8": {
-          "pv_1": 14.0
-        }
-      },
-      "sell": 232.96,
+      "k": {},
+      "sell": 251.35,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.866899,
+        "battery_2": 55.42903
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -3160,15 +3814,15 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.95,
-            "uncertainty_factor": 1.06,
-            "actual_ratio": 1.0,
-            "actual_available_mwh": 60.0
+            "uncertainty_factor": 0.95,
+            "actual_ratio": 0.9025,
+            "actual_available_mwh": 54.15
           },
           "pv_2": {
             "forecast_ratio": 0.95,
-            "uncertainty_factor": 0.96,
-            "actual_ratio": 0.912,
-            "actual_available_mwh": 72.96
+            "uncertainty_factor": 0.95,
+            "actual_ratio": 0.9025,
+            "actual_available_mwh": 72.2
           }
         },
         "battery_charge_mwh": {
@@ -3179,8 +3833,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044456,
+          "battery_2": 0.027728
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3188,23 +3852,16 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 48.96,
-        "pv_2": 58.88,
+        "pv_1": 44.605887,
+        "pv_2": 59.474517,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "a7": {
-          "pv_1": 11.0
-        },
-        "p4_8": {
-          "pv_1": 14.0
-        }
-      },
-      "sell": 207.84,
+      "k": {},
+      "sell": 229.080404,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.822465,
+        "battery_2": 55.401316
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
@@ -3213,15 +3870,15 @@
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.8,
-            "uncertainty_factor": 1.02,
-            "actual_ratio": 0.816,
-            "actual_available_mwh": 48.96
+            "uncertainty_factor": 0.929289,
+            "actual_ratio": 0.743431,
+            "actual_available_mwh": 44.605887
           },
           "pv_2": {
             "forecast_ratio": 0.8,
-            "uncertainty_factor": 0.92,
-            "actual_ratio": 0.736,
-            "actual_available_mwh": 58.88
+            "uncertainty_factor": 0.929289,
+            "actual_ratio": 0.743431,
+            "actual_available_mwh": 59.474517
           }
         },
         "battery_charge_mwh": {
@@ -3232,8 +3889,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044433,
+          "battery_2": 0.027715
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3241,47 +3908,40 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 35.28,
-        "pv_2": 52.32,
+        "pv_1": 32.882309,
+        "pv_2": 43.843078,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "a7": {
-          "pv_1": 11.0
+        "p5_11": {
+          "pv_1": 10.0
         },
-        "p2_4": {
-          "pv_1": 18.0
-        },
-        "p5_5": {
-          "pv_1": 6.28,
-          "pv_2": 8.72
-        },
-        "s5": {
-          "pv_2": 16.0
+        "p6_9": {
+          "pv_1": 8.0
         }
       },
-      "sell": 152.6,
+      "sell": 183.725387,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.778054,
+        "battery_2": 55.373615
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 64,
+        "rolling_window_start": 61,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.6,
-            "uncertainty_factor": 0.98,
-            "actual_ratio": 0.588,
-            "actual_available_mwh": 35.28
+            "uncertainty_factor": 0.913397,
+            "actual_ratio": 0.548038,
+            "actual_available_mwh": 32.882309
           },
           "pv_2": {
             "forecast_ratio": 0.6,
-            "uncertainty_factor": 1.09,
-            "actual_ratio": 0.654,
-            "actual_available_mwh": 52.32
+            "uncertainty_factor": 0.913397,
+            "actual_ratio": 0.548038,
+            "actual_available_mwh": 43.843078
           }
         },
         "battery_charge_mwh": {
@@ -3292,8 +3952,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044411,
+          "battery_2": 0.027701
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 107.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3301,44 +3971,33 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 20.304,
-        "pv_2": 30.24,
+        "pv_1": 19.5136,
+        "pv_2": 26.018134,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p2_4": {
-          "pv_1": 18.0
-        },
-        "p6_6": {
-          "pv_1": 2.304,
-          "pv_2": 8.696
-        },
-        "s5": {
-          "pv_2": 16.0
-        }
-      },
-      "sell": 130.544,
+      "k": {},
+      "sell": 170.531734,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.733665,
+        "battery_2": 55.345928
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 64,
+        "rolling_window_start": 65,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.36,
-            "uncertainty_factor": 0.94,
-            "actual_ratio": 0.3384,
-            "actual_available_mwh": 20.304
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.325227,
+            "actual_available_mwh": 19.5136
           },
           "pv_2": {
             "forecast_ratio": 0.36,
-            "uncertainty_factor": 1.05,
-            "actual_ratio": 0.378,
-            "actual_available_mwh": 30.24
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.325227,
+            "actual_available_mwh": 26.018134
           }
         },
         "battery_charge_mwh": {
@@ -3349,8 +4008,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044389,
+          "battery_2": 0.027687
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3359,29 +4028,25 @@
         "thermal_1": 80.0,
         "thermal_2": 45.0,
         "pv_1": 6.48,
-        "pv_2": 9.696,
+        "pv_2": 8.64,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "p1_5": {
+        "p6_10": {
           "pv_1": 6.48,
-          "pv_2": 9.696,
-          "thermal_1": 0.824
-        },
-        "p6_6": {
-          "thermal_1": 11.0
+          "pv_2": 1.52
         }
       },
-      "sell": 113.176,
+      "sell": 132.12,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.689298,
+        "battery_2": 55.318255
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 64,
+        "rolling_window_start": 65,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.12,
@@ -3391,9 +4056,9 @@
           },
           "pv_2": {
             "forecast_ratio": 0.12,
-            "uncertainty_factor": 1.01,
-            "actual_ratio": 0.1212,
-            "actual_available_mwh": 9.696
+            "uncertainty_factor": 0.9,
+            "actual_ratio": 0.108,
+            "actual_available_mwh": 8.64
           }
         },
         "battery_charge_mwh": {
@@ -3404,8 +4069,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044367,
+          "battery_2": 0.027673
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 117.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3413,51 +4088,39 @@
       "P": {
         "thermal_1": 80.0,
         "thermal_2": 45.0,
-        "pv_1": 0.642,
-        "pv_2": 0.776,
+        "pv_1": 0.542044,
+        "pv_2": 0.722726,
         "battery_1": 0.0,
         "battery_2": 0.0
       },
       "k": {
-        "a8": {
-          "pv_1": 0.642,
-          "pv_2": 0.776,
-          "thermal_1": 11.582
-        },
-        "p1_5": {
-          "thermal_1": 17.0
-        },
-        "p3_3": {
-          "thermal_1": 9.0
-        },
-        "p4_9": {
-          "thermal_1": 14.0
-        },
-        "p6_6": {
-          "thermal_1": 11.0
+        "p5_12": {
+          "pv_1": 0.542044,
+          "pv_2": 0.722726,
+          "thermal_1": 8.73523
         }
       },
-      "sell": 62.418,
+      "sell": 116.26477,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.644954,
+        "battery_2": 55.290596
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 67,
+        "rolling_window_start": 65,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.01,
-            "uncertainty_factor": 1.07,
-            "actual_ratio": 0.0107,
-            "actual_available_mwh": 0.642
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.009034,
+            "actual_available_mwh": 0.542044
           },
           "pv_2": {
             "forecast_ratio": 0.01,
-            "uncertainty_factor": 0.97,
-            "actual_ratio": 0.0097,
-            "actual_available_mwh": 0.776
+            "uncertainty_factor": 0.903407,
+            "actual_ratio": 0.009034,
+            "actual_available_mwh": 0.722726
           }
         },
         "battery_charge_mwh": {
@@ -3468,8 +4131,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044345,
+          "battery_2": 0.027659
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 115.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3482,36 +4155,26 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "a8": {
-          "thermal_1": 13.0
-        },
-        "p3_3": {
-          "thermal_1": 9.0
-        },
-        "p4_9": {
-          "thermal_1": 14.0
-        }
-      },
-      "sell": 89.0,
+      "k": {},
+      "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.600631,
+        "battery_2": 55.262951
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 67,
+        "rolling_window_start": 65,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.03,
+            "uncertainty_factor": 0.913397,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.93,
+            "uncertainty_factor": 0.913397,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -3524,8 +4187,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044322,
+          "battery_2": 0.027645
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3538,30 +4211,26 @@
         "battery_1": 0.0,
         "battery_2": 0.0
       },
-      "k": {
-        "p3_3": {
-          "thermal_1": 9.0
-        }
-      },
-      "sell": 116.0,
+      "k": {},
+      "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.556331,
+        "battery_2": 55.23532
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 67,
+        "rolling_window_start": 69,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.99,
+            "uncertainty_factor": 0.929289,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.1,
+            "uncertainty_factor": 0.929289,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -3574,8 +4243,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.0443,
+          "battery_2": 0.027631
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3591,13 +4270,13 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.512053,
+        "battery_2": 55.207702
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 70,
+        "rolling_window_start": 69,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
@@ -3607,7 +4286,7 @@
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.06,
+            "uncertainty_factor": 0.95,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -3620,8 +4299,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044278,
+          "battery_2": 0.027618
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3637,23 +4326,23 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.467797,
+        "battery_2": 55.180098
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 70,
+        "rolling_window_start": 69,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.91,
+            "uncertainty_factor": 0.974118,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.02,
+            "uncertainty_factor": 0.974118,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -3666,8 +4355,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044256,
+          "battery_2": 0.027604
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     },
     {
@@ -3683,23 +4382,23 @@
       "k": {},
       "sell": 125.0,
       "soc": {
-        "battery_1": 94.977778,
-        "battery_2": 51.1436
+        "battery_1": 88.423563,
+        "battery_2": 55.152508
       },
       "missed_aperiodic": [],
       "rejected_sporadic": [],
       "level2": {
-        "rolling_window_start": 70,
+        "rolling_window_start": 69,
         "actual_renewable_available": {
           "pv_1": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 1.08,
+            "uncertainty_factor": 1.0,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           },
           "pv_2": {
             "forecast_ratio": 0.0,
-            "uncertainty_factor": 0.98,
+            "uncertainty_factor": 1.0,
             "actual_ratio": 0.0,
             "actual_available_mwh": 0.0
           }
@@ -3712,8 +4411,18 @@
           "battery_1": 0.0,
           "battery_2": 0.0
         },
+        "battery_self_discharge_loss_mwh": {
+          "battery_1": 0.044234,
+          "battery_2": 0.02759
+        },
         "charge_efficiency": 0.95,
-        "discharge_efficiency": 0.9
+        "discharge_efficiency": 0.9,
+        "self_discharge_rate": 0.0005,
+        "soc_dependent_charge_ratio": 0.6,
+        "soc_dependent_discharge_ratio": 0.6,
+        "day_ahead_sell_commitment_mwh": 125.0,
+        "sell_commitment_shortfall_mwh": 0.0,
+        "sell_commitment_penalty": 0.0
       }
     }
   ]

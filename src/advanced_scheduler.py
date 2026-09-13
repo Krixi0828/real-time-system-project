@@ -1,90 +1,5 @@
-"""
-advanced_scheduler.py
-============================================================
-RTSPJT Level 2 advanced dynamic scheduler.
-
-This file keeps the Level 1 hard-deadline job placement intact, then applies a
-rolling corrective energy dispatch with relaxed assumptions:
-
-1. Renewable forecast uncertainty:
-   Notation:
-     F_{r,t}: forecast renewable availability ratio.
-     A_{r,t}: actual renewable availability ratio.
-     theta_{r,t}: deterministic uncertainty factor.
-   Text constraint:
-     Renewable output is limited by actual availability, not only forecast.
-   Formula:
-     0 <= P^R_{r,t} <= Cap_r * A_{r,t}
-     A_{r,t} = min(1, max(0, F_{r,t} * theta_{r,t}))
-
-2. Battery charge/discharge efficiency:
-   Notation:
-     eta_ch, eta_dis: charge and discharge efficiencies.
-   Text constraint:
-     Charging does not fully increase SOC, and discharging consumes more SOC
-     than the delivered energy.
-   Formula:
-     SOC_{b,t} = SOC_{b,t-1} + eta_ch * Chg_{b,t} - Dis_{b,t} / eta_dis
-
-3. Battery aging cost:
-   Notation:
-     c_age: battery aging cost per MWh throughput.
-   Text constraint:
-     Battery usage has an operational cost.
-   Formula:
-     C_age = c_age * sum_t sum_b (Chg_{b,t} + Dis_{b,t})
-
-4. Battery cycle / throughput limit:
-   Notation:
-     L_b: daily battery throughput limit.
-   Text constraint:
-     A battery cannot be charged/discharged without daily usage limits.
-   Formula:
-     sum_t (Chg_{b,t} + Dis_{b,t}) <= L_b
-
-5. Rolling corrective dispatch:
-   Notation:
-     ROLLING_WINDOW = 3 hours.
-   Text constraint:
-     Every 3 hours, the scheduler observes actual PV availability and updates
-     only energy dispatch. It does not move periodic jobs or accepted sporadic
-     hard-deadline jobs.
-   Formula:
-     k^adv_{j,i,t} may be redistributed over processors, but x_{j,t} is fixed
-     for all hard-deadline jobs after Level 1 acceptance.
-
-6. Renewable surplus use:
-   Text constraint:
-     If actual PV exceeds current job demand, use it to charge batteries first,
-     then sell remaining energy to the market.
-
-7. Renewable shortage correction:
-   Text constraint:
-     If actual PV is below the day-ahead expectation, discharge batteries during
-     high-price hours before relying on thermal slack.
-
-8. Aperiodic slack policy:
-   Text constraint:
-     Aperiodic jobs remain soft-deadline jobs. The advanced dispatcher does not
-     perform hard-deadline acceptance for them, but preserves their completion
-     and records soft deadline metrics.
-
-9. Market-aware battery use:
-   Text constraint:
-     Charge batteries in low-price or renewable-surplus hours, discharge in
-     high-price hours if SOC and cycle limits allow.
-
-10. Objective extension:
-   Formula:
-     F_adv = alpha * (# aperiodic misses)
-             + generator_cost
-             + battery_aging_cost
-             - market_revenue
-"""
-
-from __future__ import annotations
-
 import json
+import math
 import statistics
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -100,6 +15,10 @@ CHARGE_EFFICIENCY = 0.95
 DISCHARGE_EFFICIENCY = 0.90
 BATTERY_AGING_COST_PER_MWH = 5.0
 BATTERY_DAILY_THROUGHPUT_RATIO = 1.20
+BATTERY_SELF_DISCHARGE_RATE = 0.0005
+SOC_DEPENDENT_CHARGE_RATIO = 0.60
+SOC_DEPENDENT_DISCHARGE_RATIO = 0.60
+SELL_COMMITMENT_PENALTY_RATE = 0.25
 LOW_PRICE_QUANTILE = 0.30
 HIGH_PRICE_QUANTILE = 0.70
 EPS = 1e-6
@@ -121,10 +40,8 @@ def quantile(values: List[float], q: float) -> float:
 
 
 def uncertainty_factor(renewable_id: str, t: int) -> float:
-    """Deterministic actual-PV factor so the output is reproducible."""
-    rid_shift = sum(ord(c) for c in renewable_id) % 7
-    pattern = ((t * 17 + rid_shift * 11) % 21) - 10
-    return max(0.65, min(1.20, 1.0 + pattern / 100.0))
+    """Deterministic sinusoidal +/-10% PV uncertainty factor."""
+    return 1.0 + 0.1 * math.sin(2.0 * math.pi * t / 24.0)
 
 
 def build_actual_renewable(maps: Dict[str, Any]) -> Dict[str, Dict[int, Dict[str, float]]]:
@@ -216,6 +133,42 @@ def planned_thermal_outputs(t: int, maps: Dict[str, Any]) -> Dict[str, float]:
     return base.planned_generator_outputs(t, maps)
 
 
+def apply_self_discharge(soc_value: float, storage: Dict[str, Any]) -> Tuple[float, float]:
+    soc_min = float(storage["soc_min"])
+    after_loss = max(soc_min, soc_value * (1.0 - BATTERY_SELF_DISCHARGE_RATE))
+    return after_loss, max(0.0, soc_value - after_loss)
+
+
+def soc_dependent_discharge_limit(soc_value: float, storage: Dict[str, Any]) -> float:
+    soc_min = float(storage["soc_min"])
+    energy_above_min = max(0.0, soc_value - soc_min)
+    return min(
+        float(storage["discharge_max"]),
+        energy_above_min * DISCHARGE_EFFICIENCY * SOC_DEPENDENT_DISCHARGE_RATIO,
+    )
+
+
+def soc_dependent_charge_limit(soc_value: float, storage: Dict[str, Any]) -> float:
+    soc_max = float(storage["soc_max"])
+    input_room = max(0.0, (soc_max - soc_value) / CHARGE_EFFICIENCY)
+    return min(
+        float(storage["charge_max"]),
+        input_room * SOC_DEPENDENT_CHARGE_RATIO,
+    )
+
+
+def build_day_ahead_sell_commitment(
+    schedule: Dict[int, Dict[str, Any]],
+    maps: Dict[str, Any],
+) -> Dict[int, float]:
+    commitment = {}
+    for t in range(1, H + 1):
+        thermal_output = sum(planned_thermal_outputs(t, maps).values())
+        external_demand = sum(job_need_by_hour(schedule, t).values())
+        commitment[t] = round(max(0.0, thermal_output - external_demand), 6)
+    return commitment
+
+
 def dispatch_advanced_energy(
     schedule: Dict[int, Dict[str, Any]],
     maps: Dict[str, Any],
@@ -230,6 +183,7 @@ def dispatch_advanced_energy(
     renewable_ids = sorted(maps["renewable_capacity"])
     all_devices = generator_ids + renewable_ids + storage_ids
     charging_jobs_by_storage = {target: jid for jid, target in maps["charging_jobs"].items()}
+    day_ahead_sell_commitment = build_day_ahead_sell_commitment(schedule, maps)
 
     soc = {sid: float(maps["storages"][sid]["soc_init"]) for sid in storage_ids}
     throughput_limit = {
@@ -243,6 +197,9 @@ def dispatch_advanced_energy(
     pv_charged = 0.0
     battery_discharge_total = 0.0
     battery_charge_total = 0.0
+    battery_self_discharge_loss_total = 0.0
+    sell_commitment_shortfall_total = 0.0
+    sell_commitment_penalty = 0.0
 
     for window_start in range(1, H + 1, ROLLING_WINDOW):
         window_end = min(H, window_start + ROLLING_WINDOW - 1)
@@ -258,6 +215,11 @@ def dispatch_advanced_energy(
             }
 
             pools = {device: 0.0 for device in all_devices}
+            battery_self_discharge_loss: Dict[str, float] = {sid: 0.0 for sid in storage_ids}
+            for sid in storage_ids:
+                soc[sid], loss = apply_self_discharge(soc[sid], maps["storages"][sid])
+                battery_self_discharge_loss[sid] = loss
+                battery_self_discharge_loss_total += loss
 
             # Actual PV is observed at the rolling boundary and used first.
             remaining_job_demand = total_job_demand
@@ -273,12 +235,11 @@ def dispatch_advanced_energy(
             if prices.get(t, 0.0) >= high_price:
                 for sid in storage_ids:
                     s = maps["storages"][sid]
-                    room_by_soc = max(0.0, (soc[sid] - float(s["soc_min"])) * DISCHARGE_EFFICIENCY)
                     room_by_cycle = max(0.0, throughput_limit[sid] - throughput_used[sid])
+                    soc_power_limit = soc_dependent_discharge_limit(soc[sid], s)
                     discharge = min(
                         remaining_job_demand,
-                        float(s["discharge_max"]),
-                        room_by_soc,
+                        soc_power_limit,
                         room_by_cycle,
                     )
                     if discharge > EPS:
@@ -306,9 +267,9 @@ def dispatch_advanced_energy(
             if can_charge:
                 for sid in storage_ids:
                     s = maps["storages"][sid]
-                    soc_room_input = max(0.0, (float(s["soc_max"]) - soc[sid]) / CHARGE_EFFICIENCY)
                     cycle_room = max(0.0, throughput_limit[sid] - throughput_used[sid])
-                    charge = min(float(s["charge_max"]), soc_room_input, cycle_room)
+                    soc_power_limit = soc_dependent_charge_limit(soc[sid], s)
+                    charge = min(soc_power_limit, cycle_room)
                     if charge <= EPS:
                         continue
 
@@ -367,6 +328,10 @@ def dispatch_advanced_energy(
             row["sell"] = round(total_p - total_k, 6)
             if row["sell"] < -1e-5:
                 raise RuntimeError(f"Advanced dispatch negative sell at t={t}: {row['sell']}")
+            sell_shortfall = max(0.0, day_ahead_sell_commitment[t] - float(row["sell"]))
+            cancellation_penalty = sell_shortfall * float(prices.get(t, 0.0)) * SELL_COMMITMENT_PENALTY_RATE
+            sell_commitment_shortfall_total += sell_shortfall
+            sell_commitment_penalty += cancellation_penalty
 
             row["level2"] = {
                 "rolling_window_start": window_start,
@@ -375,8 +340,17 @@ def dispatch_advanced_energy(
                 },
                 "battery_charge_mwh": {sid: round(battery_charge[sid], 6) for sid in storage_ids},
                 "battery_discharge_mwh": {sid: round(battery_discharge[sid], 6) for sid in storage_ids},
+                "battery_self_discharge_loss_mwh": {
+                    sid: round(battery_self_discharge_loss[sid], 6) for sid in storage_ids
+                },
                 "charge_efficiency": CHARGE_EFFICIENCY,
                 "discharge_efficiency": DISCHARGE_EFFICIENCY,
+                "self_discharge_rate": BATTERY_SELF_DISCHARGE_RATE,
+                "soc_dependent_charge_ratio": SOC_DEPENDENT_CHARGE_RATIO,
+                "soc_dependent_discharge_ratio": SOC_DEPENDENT_DISCHARGE_RATIO,
+                "day_ahead_sell_commitment_mwh": day_ahead_sell_commitment[t],
+                "sell_commitment_shortfall_mwh": round(sell_shortfall, 6),
+                "sell_commitment_penalty": round(cancellation_penalty, 6),
             }
 
     dispatch_summary = {
@@ -385,15 +359,23 @@ def dispatch_advanced_energy(
         "high_price_threshold": high_price,
         "charge_efficiency": CHARGE_EFFICIENCY,
         "discharge_efficiency": DISCHARGE_EFFICIENCY,
+        "self_discharge_rate": BATTERY_SELF_DISCHARGE_RATE,
+        "soc_dependent_charge_ratio": SOC_DEPENDENT_CHARGE_RATIO,
+        "soc_dependent_discharge_ratio": SOC_DEPENDENT_DISCHARGE_RATIO,
         "battery_aging_cost_per_mwh": BATTERY_AGING_COST_PER_MWH,
         "battery_aging_cost": round(battery_aging_cost, 6),
         "battery_charge_total_mwh": round(battery_charge_total, 6),
         "battery_discharge_total_mwh": round(battery_discharge_total, 6),
+        "battery_self_discharge_loss_total_mwh": round(battery_self_discharge_loss_total, 6),
         "battery_throughput_used_mwh": {sid: round(v, 6) for sid, v in throughput_used.items()},
         "battery_throughput_limit_mwh": {sid: round(v, 6) for sid, v in throughput_limit.items()},
         "pv_used_for_jobs_mwh": round(pv_used_for_jobs, 6),
         "pv_used_for_charging_mwh": round(pv_charged, 6),
         "pv_sold_mwh": round(pv_sold, 6),
+        "day_ahead_sell_commitment_total_mwh": round(sum(day_ahead_sell_commitment.values()), 6),
+        "sell_commitment_shortfall_total_mwh": round(sell_commitment_shortfall_total, 6),
+        "sell_commitment_penalty_rate": SELL_COMMITMENT_PENALTY_RATE,
+        "sell_commitment_penalty": round(sell_commitment_penalty, 6),
     }
     return schedule, dispatch_summary
 
@@ -459,7 +441,14 @@ def evaluate_advanced(
                 generator_cost += float(g["cost_fixed"]) + float(g["cost_variable"]) * p
     market_revenue = sum(float(schedule[t]["sell"]) * float(maps["prices"].get(t, 0.0)) for t in range(1, H + 1))
     battery_aging_cost = float(dispatch_summary["battery_aging_cost"])
-    objective_value = ALPHA_MISS_PENALTY * len(soft_misses) + generator_cost + battery_aging_cost - market_revenue
+    sell_commitment_penalty = float(dispatch_summary["sell_commitment_penalty"])
+    objective_value = (
+        ALPHA_MISS_PENALTY * len(soft_misses)
+        + generator_cost
+        + battery_aging_cost
+        + sell_commitment_penalty
+        - market_revenue
+    )
 
     return {
         "hard_deadline_miss_rate": round(len(hard_misses) / len(hard_jobs), 6) if hard_jobs else 0.0,
@@ -479,6 +468,7 @@ def evaluate_advanced(
         "generator_cost": round(generator_cost, 6),
         "battery_aging_cost": round(battery_aging_cost, 6),
         "market_revenue": round(market_revenue, 6),
+        "sell_commitment_penalty": round(sell_commitment_penalty, 6),
         "objective_value": round(objective_value, 6),
         "periodic_average_response_time": round(
             sum(response_time(j) or 0 for j in periodic_jobs) / len(periodic_jobs), 6
@@ -495,7 +485,11 @@ def evaluate_advanced(
             "battery_soc_update_with_efficiency",
             "battery_aging_cost",
             "battery_daily_throughput_limit",
-            "rolling_corrective_dispatch_every_3_hours",
+            "battery_self_discharge",
+            "soc_dependent_charge_power_limit",
+            "soc_dependent_discharge_power_limit",
+            "day_ahead_sell_commitment_shortfall_penalty",
+            "rolling_corrective_dispatch_every_4_hours",
             "renewable_surplus_charges_battery_before_market_sale",
             "market_aware_battery_discharge_in_high_price_hours",
         ],
@@ -536,15 +530,19 @@ def validate_advanced_schedule(
             for chg_job, target in maps["charging_jobs"].items():
                 if target == sid:
                     charge += sum(float(v) for v in row["k"].get(chg_job, {}).values())
-            expected_soc = prev_soc[sid] + charge * CHARGE_EFFICIENCY - discharge / DISCHARGE_EFFICIENCY
+            soc_after_self_discharge, _ = apply_self_discharge(prev_soc[sid], s)
+            expected_soc = soc_after_self_discharge + charge * CHARGE_EFFICIENCY - discharge / DISCHARGE_EFFICIENCY
             if abs(reported_soc - expected_soc) > 1e-4:
                 violations.append(f"{sid} efficient SOC mismatch at t={t}")
             if reported_soc < float(s["soc_min"]) - EPS or reported_soc > float(s["soc_max"]) + EPS:
                 violations.append(f"{sid} SOC bound violation at t={t}")
-            if discharge > float(s["discharge_max"]) + EPS:
-                violations.append(f"{sid} discharge max violation at t={t}")
-            if charge > float(s["charge_max"]) + EPS:
-                violations.append(f"{sid} charge max violation at t={t}")
+            discharge_limit = soc_dependent_discharge_limit(soc_after_self_discharge, s)
+            if discharge > discharge_limit + EPS:
+                violations.append(f"{sid} SOC-dependent discharge limit violation at t={t}")
+            soc_after_discharge = soc_after_self_discharge - discharge / DISCHARGE_EFFICIENCY
+            charge_limit = soc_dependent_charge_limit(soc_after_discharge, s)
+            if charge > charge_limit + EPS:
+                violations.append(f"{sid} SOC-dependent charge limit violation at t={t}")
             if charge > EPS and discharge > EPS:
                 violations.append(f"{sid} simultaneous charge/discharge at t={t}")
             prev_soc[sid] = reported_soc
@@ -579,8 +577,8 @@ def build_modeling_notes() -> Dict[str, Any]:
         "notation_and_constraints": [
             {
                 "name": "Actual renewable availability",
-                "notation": "A_{r,t}=clip(F_{r,t}*theta_{r,t},0,1)",
-                "text": "The advanced scheduler observes actual renewable availability, which may differ from forecast.",
+                "notation": "theta_{r,t}=1+0.1*sin(2*pi*t/24), A_{r,t}=clip(F_{r,t}*theta_{r,t},0,1)",
+                "text": "The advanced scheduler observes actual renewable availability within +/-10% of the forecast.",
                 "formula": "0 <= P^R_{r,t} <= Cap_r * A_{r,t}",
             },
             {
@@ -602,9 +600,27 @@ def build_modeling_notes() -> Dict[str, Any]:
                 "formula": "sum_t (Chg_{b,t}+Dis_{b,t}) <= L_b",
             },
             {
+                "name": "Battery self-discharge",
+                "notation": "rho_b",
+                "text": "Stored battery energy decays slightly over time even when it is not used.",
+                "formula": "SOC_{b,t}=max(SOC_min_b,(1-rho_b)SOC_{b,t-1})+eta_ch Chg_{b,t}-Dis_{b,t}/eta_dis",
+            },
+            {
+                "name": "SOC-dependent discharge power limit",
+                "notation": "gamma_dis",
+                "text": "Battery discharge power is reduced when SOC is close to the minimum level.",
+                "formula": "Dis_{b,t} <= min(Dis_max_b, gamma_dis * eta_dis * max(0,SOC'_{b,t}-SOC_min_b))",
+            },
+            {
+                "name": "SOC-dependent charge power limit",
+                "notation": "gamma_ch",
+                "text": "Battery charge power is reduced when SOC is close to the maximum level.",
+                "formula": "Chg_{b,t} <= min(Chg_max_b, gamma_ch * max(0,SOC_max_b-SOC''_{b,t})/eta_ch)",
+            },
+            {
                 "name": "Rolling update",
-                "notation": "Delta=3 hours",
-                "text": "Every 3 hours, actual renewable data is observed and energy dispatch is corrected.",
+                "notation": "Delta=4 hours",
+                "text": "Every 4 hours, actual renewable data is observed and energy dispatch is corrected.",
                 "formula": "k^adv_{j,i,t} can be redistributed, but hard-deadline x_{j,t} is fixed.",
             },
             {
@@ -632,6 +648,12 @@ def build_modeling_notes() -> Dict[str, Any]:
                 "formula": "Chg_{b,t}>0 only if lambda_t<=lambda_low or Surplus^R_t>0; Dis_{b,t}>0 only if lambda_t>=lambda_high",
             },
             {
+                "name": "Day-ahead sell commitment shortfall penalty",
+                "notation": "S^DA_t, pi_cancel",
+                "text": "If real-time market sale is lower than the day-ahead sell commitment, the shortfall incurs a penalty.",
+                "formula": "C_cancel=sum_t pi_cancel * lambda_t * max(0,S^DA_t-S_t)",
+            },
+            {
                 "name": "Aperiodic soft-deadline policy",
                 "notation": "Miss_j, T_j",
                 "text": "Aperiodic jobs do not receive hard-deadline acceptance tests; late completion is recorded as soft miss and tardiness.",
@@ -640,8 +662,8 @@ def build_modeling_notes() -> Dict[str, Any]:
             {
                 "name": "Advanced objective",
                 "notation": "F_adv",
-                "text": "The objective includes aperiodic misses, thermal cost, battery aging, and market revenue.",
-                "formula": "F_adv=alpha*miss_a+generator_cost+battery_aging_cost-market_revenue",
+                "text": "The objective includes aperiodic misses, thermal cost, battery aging, sell-commitment penalty, and market revenue.",
+                "formula": "F_adv=alpha*miss_a+generator_cost+battery_aging_cost+C_cancel-market_revenue",
             },
         ],
     }
@@ -667,16 +689,17 @@ def main() -> None:
     advanced_eval["advanced_validation_summary"] = validation
     advanced_eval["modeling_notes"] = build_modeling_notes()
 
-    save_json({"schedule_result": [advanced_schedule[t] for t in range(1, H + 1)]}, "output/advanced_schedule_result.json")
-    save_json(advanced_eval, "output/advanced_evaluation_results.json")
-    save_json(build_modeling_notes(), "output/advanced_modeling_notes.json")
-    save_json(aux["acceptance_test_log"], "output/advanced_acceptance_test_log.json")
+    save_json({"schedule_result": [advanced_schedule[t] for t in range(1, H + 1)]}, "output/schedule_result.json")
+    save_json(advanced_eval, "output/evaluation_results.json")
+    #save_json(build_modeling_notes(), "output/advanced_modeling_notes.json") #測試用
+    save_json(aux["acceptance_test_log"], "output/acceptance_test_log.json")
 
     print("Advanced scheduling finished.")
     print(f"advanced_constraint_violation_count = {validation['advanced_constraint_violation_count']}")
     print(f"hard_deadline_miss_rate = {advanced_eval['hard_deadline_miss_rate']}")
     print(f"soft_deadline_miss_rate = {advanced_eval['soft_deadline_miss_rate']}")
     print(f"sporadic_value_rate = {advanced_eval['sporadic_value_rate']}")
+    print(f"sell_commitment_penalty = {advanced_eval['sell_commitment_penalty']}")
     print(f"objective_value = {advanced_eval['objective_value']}")
     print("Saved to output/advanced_schedule_result.json")
     print("Saved to output/advanced_evaluation_results.json")

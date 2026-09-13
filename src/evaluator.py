@@ -38,7 +38,7 @@ FRAME_SIZE = 3
 ALPHA_MISS_PENALTY = 10000
 THERMAL_PRIMARY = "thermal_1"
 SPORADIC_RESERVE_MWH = 20.0
-APERIODIC_RESERVE_MWH = 5.0
+APERIODIC_RESERVE_MWH = 15.0
 EPS = 1e-6
 
 
@@ -124,6 +124,8 @@ def first_existing_path(candidates: List[str]) -> Path:
 # ============================================================
 # 2. 載入輸入資料
 # ============================================================
+
+
 
 def load_all_inputs() -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     """
@@ -244,6 +246,45 @@ def build_maps(processor_data: Dict[str, Any], price_data: Dict[str, Any]) -> Di
 # ============================================================
 # 4. 載入 Demo jobs：sporadic / aperiodic
 # ============================================================
+def convert_jobs_format(raw_data: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
+    """
+    將以 Dict 形式儲存的任務資料（例如原本 JSON 中的 sporadic 或 aperiodic）
+    轉換為標準的 List[Dict] 格式，並確保每個任務內部都包含正確的 'job_id'。
+    """
+    converted_result = {}
+    
+    # 遍歷外部的所有任務類型，例如 "sporadic", "aperiodic" 等
+    for task_type, tasks_content in raw_data.items():
+        
+        # 情況一：如果任務內容是字典格式 {"s1": {...}, "s2": {...}}
+        if isinstance(tasks_content, dict):
+            task_list = []
+            for key, job_detail in tasks_content.items():
+                # 複製一份資料，避免修改到原本的 dict
+                updated_job = job_detail.copy()
+                
+                # 如果內部沒有 job_id 欄位，或者 job_id 與外層的 key 不符，自動校正
+                if "job_id" not in updated_job or updated_job["job_id"] != key:
+                    updated_job["job_id"] = key
+                
+                task_list.append(updated_job)
+            
+            # 依據 job_id 排序（選用，讓輸出比較整齊）
+            task_list.sort(key=lambda x: x["job_id"])
+            converted_result[task_type] = task_list
+            
+        # 情況二：如果原本就已經是串列格式了，直接保留
+        elif isinstance(tasks_content, list):
+            converted_result[task_type] = tasks_content
+        
+        # 其他情況（防呆）
+        else:
+            converted_result[task_type] = tasks_content
+
+    return converted_result
+
+
+
 
 def normalize_demo_jobs(jobs: List[Dict[str, Any]], prefix: str, job_type: str) -> List[Dict[str, Any]]:
     """
@@ -303,12 +344,12 @@ def load_demo_jobs_from_files_or_fallback(acceptance_data: Dict[str, Any]) -> Tu
     - 讓 evaluator 可以在 demo jobs 出現後重新計算 metrics。
     """
     demo_candidates = [
-        "input/demo_jobs.json", "../input/demo_jobs.json", "output/demo_jobs.json", "demo_jobs.json"
+        "input/aperiodic_n_sporadic.json", "../input/aperiodic_n_sporadic.json", "output/aperiodic_n_sporadic.json", "aperiodic_n_sporadic.json"
     ]
     for candidate in demo_candidates:
         path = resolve_path(candidate)
         if path.exists():
-            data = load_json(path)
+            data = convert_jobs_format(load_json(path))
             return (
                 normalize_demo_jobs(data.get("sporadic", []), "s", "sporadic"),
                 normalize_demo_jobs(data.get("aperiodic", []), "a", "aperiodic"),
@@ -320,14 +361,14 @@ def load_demo_jobs_from_files_or_fallback(acceptance_data: Dict[str, Any]) -> Tu
     for candidate in ["input/sporadic_jobs.json", "../input/sporadic_jobs.json", "output/sporadic_jobs.json", "sporadic_jobs.json"]:
         path = resolve_path(candidate)
         if path.exists():
-            data = load_json(path)
+            data = convert_jobs_format(load_json(path))
             sporadic_raw = data.get("sporadic", data) if isinstance(data, dict) else data
             break
 
     for candidate in ["input/aperiodic_jobs.json", "../input/aperiodic_jobs.json", "output/aperiodic_jobs.json", "aperiodic_jobs.json"]:
         path = resolve_path(candidate)
         if path.exists():
-            data = load_json(path)
+            data = convert_jobs_format(load_json(path))
             aperiodic_raw = data.get("aperiodic", data) if isinstance(data, dict) else data
             break
 
@@ -352,23 +393,12 @@ def load_demo_jobs_from_files_or_fallback(acceptance_data: Dict[str, Any]) -> Tu
     # 如果仍沒有任何 demo jobs，使用 scheduler.py 的 deterministic sample。
     if not sporadic_raw:
         sporadic_raw = [
-            {"job_id": "s1", "r": 10, "e": 2, "d": 5, "w": 12, "preempt": 1},
-            {"job_id": "s2", "r": 18, "e": 3, "d": 6, "w": 18, "preempt": 0},
-            {"job_id": "s3", "r": 29, "e": 1, "d": 4, "w": 20, "preempt": 1},
-            {"job_id": "s4", "r": 46, "e": 2, "d": 5, "w": 10, "preempt": 1},
-            {"job_id": "s5", "r": 64, "e": 2, "d": 4, "w": 16, "preempt": 0},
+       
         ]
 
     if aperiodic_raw is None:
         aperiodic_raw = [
-            {"job_id": "a1", "r": 7, "e": 2, "d": 8, "w": 8, "preempt": 1},
-            {"job_id": "a2", "r": 12, "e": 1, "d": 5, "w": 10, "preempt": 1},
-            {"job_id": "a3", "r": 21, "e": 4, "d": 10, "w": 15, "preempt": 0},
-            {"job_id": "a4", "r": 25, "e": 2, "d": 6, "w": 9, "preempt": 1},
-            {"job_id": "a5", "r": 37, "e": 3, "d": 9, "w": 12, "preempt": 0},
-            {"job_id": "a6", "r": 52, "e": 1, "d": 4, "w": 5, "preempt": 1},
-            {"job_id": "a7", "r": 58, "e": 3, "d": 8, "w": 11, "preempt": 1},
-            {"job_id": "a8", "r": 66, "e": 2, "d": 5, "w": 13, "preempt": 0},
+
         ]
 
     return (
